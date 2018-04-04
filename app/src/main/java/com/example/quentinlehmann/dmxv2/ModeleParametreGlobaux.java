@@ -1,13 +1,6 @@
 package com.example.quentinlehmann.dmxv2;
 
-import android.arch.lifecycle.Lifecycle;
-import android.widget.Toast;
-
 import java.net.Inet4Address;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by quentin.lehmann on 28/03/2018.
@@ -15,28 +8,34 @@ import java.util.Map;
 
 public class ModeleParametreGlobaux {
 
+    public interface PropertyChangedListener
+    {
+        void OnPropertyChanged (String propertyName);
+    }
+
+    public String[] getTargetType () {
+        return new String[] {"Projecteur", "Lyre"};
+    }
+
+    private PropertyChangedListener onPropertyChanged;
+
     private String type;
-    private String adress;
-    private Inet4Address hostname;
-    private int port;
+    private String address;
+    private String hostname;
+    private String port;
 
-    public List<IEvent> subs = new LinkedList<IEvent>(  );
-
-    private void NotifyPropertyChanged (String name)
-    {
-        for (IEvent sub : subs)
-        {
-            sub.onPropertyChange( name );
-        }
-    }
-
-    // IEvent onPropertyChanged (type)
-
-    public void Sauvegarde ()
+    public ModeleParametreGlobaux ()
     {
 
     }
 
+    public PropertyChangedListener getOnPropertyChanged() {
+        return onPropertyChanged;
+    }
+
+    public void setOnPropertyChanged(PropertyChangedListener onPropertyChanged) {
+        this.onPropertyChanged = onPropertyChanged;
+    }
 
     public String getType() {
         return type;
@@ -45,47 +44,46 @@ public class ModeleParametreGlobaux {
     public void setType(String type) {
         if (this.type != type) {
             this.type = type;
-            NotifyPropertyChanged( "Type" );
+            NotifyPropertyChanged("Type");
         }
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        if (this.adress != adress) {
-            this.adress = adress;
-            NotifyPropertyChanged( "Adress" );
+    public void setAddress(String address) {
+        if (this.address != address) {
+            this.address = address;
+            NotifyPropertyChanged("Address");
         }
     }
 
-    public Inet4Address getHostname() {
+    public String getHostname() {
         return hostname;
     }
 
-    public void setHostname(Inet4Address hostname) {
+    public void setHostname(String hostname) {
         if (this.hostname != hostname) {
             this.hostname = hostname;
-            NotifyPropertyChanged( "Hostname" );
+            NotifyPropertyChanged("Hostname");
         }
     }
 
-    public int getPort() {
+    public String getPort() {
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(String port) {
         if (this.port != port) {
             this.port = port;
-            NotifyPropertyChanged( "Port" );
+            NotifyPropertyChanged("Port");
         }
     }
 
-    public interface IEvent
-    {
-
-        void onPropertyChange (String nom);
+    private void NotifyPropertyChanged (String propertyName) {
+        if (onPropertyChanged != null)
+            getOnPropertyChanged().OnPropertyChanged(propertyName);
     }
 
 }
