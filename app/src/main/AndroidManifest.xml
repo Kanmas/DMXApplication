@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.quentinlehmann.dmxv2">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Bienvenue">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Changer_Couleur"
+            android:label="Couleur"
+            android:parentActivityName=".Bienvenue">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Bienvenue" />
+        </activity>
+        <activity
+            android:name=".GererSB"
+            android:label="Story Board"
+            android:parentActivityName=".Bienvenue">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Bienvenue" />
+        </activity>
+        <activity
+            android:name=".ParametreGlobaux"
+            android:label="Paramètre"
+            android:parentActivityName=".Bienvenue">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Bienvenue" />
+        </activity>
+        <activity
+            android:name=".GererCouleurSB"
+            android:label="Story Board"
+            android:parentActivityName=".GererSB">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GererSB" />
+        </activity>
+        <activity
+            android:name=".ParametreNewSb"
+            android:label="Nouvelle StoryBoard"
+            android:parentActivityName=".GererSB">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GererSB" />
+        </activity>
+        <activity
+            android:name=".GererNewSBColor"
+            android:label="Story Board"
+            android:parentActivityName=".ParametreNewSb">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ParametreNewSb" />
+        </activity>
+        <activity android:name=".ChangerCouleurSB"
+            android:label="Couleur"
+            android:parentActivityName=".GererNewSBColor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GererNewSBColor" />
+        </activity>
+    </application>
+
+</manifest>

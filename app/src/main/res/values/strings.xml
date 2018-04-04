@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Bienvenue
+    </string>
+    <string name="g_rer_les_story_boards">Gérer les story boards</string>
+    <string name="Changer_couleur">Changer couleur</string>
+    <string name="changer_couleur">Changer couleur</string>
+    <string name="param_tre">Paramètre</string>
+    <string name="title_activity_gerer_sb">GererSb</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gerer_story_board">GererStoryBoard</string>
+    <string name="envoyer">Envoyer</string>
+    <string name="MenuChangerCouleur">MenuChangerCouleur</string>
+    <string name="valider">Valider</string>
+    <string name="type_de_cible">Type de cible</string>
+    <string name="adresse_de_la_cible">Adresse de la cible</string>
+    <string name="port_distant">Port distant</string>
+    <string name="adresse_ip_du_serveur">Adresse IP du serveur</string>
+    <string name="annuler">Annuler</string>
+    <string name="title_activity_gerer_couleur_sb">GererCouleurSB</string>
+    <string name="sauvegarder">Sauvegarder</string>
+    <string name="nom_de_la_story_board">Nom de la Story Board</string>
+    <string name="title_activity_gerer_new_sbcolor">GererNewSBColor</string>
+</resources>
