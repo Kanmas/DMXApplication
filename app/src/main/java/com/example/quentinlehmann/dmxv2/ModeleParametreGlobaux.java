@@ -1,6 +1,11 @@
 package com.example.quentinlehmann.dmxv2;
 
-import java.net.Inet4Address;
+import android.view.Display;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by quentin.lehmann on 28/03/2018.
@@ -16,6 +21,7 @@ public class ModeleParametreGlobaux extends BaseModel {
     private String address;
     private String hostname;
     private String port;
+    FileOutputStream outputStream = null;
 
     public ModeleParametreGlobaux ()
     {
@@ -64,6 +70,14 @@ public class ModeleParametreGlobaux extends BaseModel {
             this.port = port;
             NotifyPropertyChanged("Port");
         }
+    }
+
+    public void Sauvegarder () throws IOException {
+        outputStream = openFileOutput
+        outputStream.write( Json.Serialize( this ).getBytes() );
+        if (outputStream!=null)
+            outputStream.close();
+        Toast.makeText(ParametreGlobaux.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();
     }
 
 }

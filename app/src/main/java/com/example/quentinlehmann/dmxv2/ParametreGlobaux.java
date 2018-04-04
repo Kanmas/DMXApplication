@@ -1,18 +1,19 @@
 package com.example.quentinlehmann.dmxv2;
 
-import android.database.DataSetObserver;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 public class ParametreGlobaux extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class ParametreGlobaux extends AppCompatActivity {
     private static void setCurrentInstance (ParametreGlobaux parametreGlobaux) {
         ParametreGlobaux.currentInstance = parametreGlobaux;
     }
-    private static ParametreGlobaux getCurrentInstance () {
+    public static ParametreGlobaux getCurrentInstance () {
         return currentInstance;
     }
 
@@ -124,6 +125,18 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             }
         });
+
+        (findViewById( R.id.btnOKParaGlobo )).setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getCurrentInstance().getModel().Sauvegarder();
+                } catch (IOException e) {
+                    Toast.makeText( getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    e.printStackTrace();
+                }
+            }
+        } );
     }
 
     public ModeleParametreGlobaux getModel() {
