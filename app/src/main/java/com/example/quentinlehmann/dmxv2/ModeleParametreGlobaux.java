@@ -6,18 +6,11 @@ import java.net.Inet4Address;
  * Created by quentin.lehmann on 28/03/2018.
  */
 
-public class ModeleParametreGlobaux {
-
-    public interface PropertyChangedListener
-    {
-        void OnPropertyChanged (String propertyName);
-    }
+public class ModeleParametreGlobaux extends BaseModel {
 
     public String[] getTargetType () {
         return new String[] {"Projecteur", "Lyre"};
     }
-
-    private PropertyChangedListener onPropertyChanged;
 
     private String type;
     private String address;
@@ -27,14 +20,6 @@ public class ModeleParametreGlobaux {
     public ModeleParametreGlobaux ()
     {
 
-    }
-
-    public PropertyChangedListener getOnPropertyChanged() {
-        return onPropertyChanged;
-    }
-
-    public void setOnPropertyChanged(PropertyChangedListener onPropertyChanged) {
-        this.onPropertyChanged = onPropertyChanged;
     }
 
     public String getType() {
@@ -79,11 +64,6 @@ public class ModeleParametreGlobaux {
             this.port = port;
             NotifyPropertyChanged("Port");
         }
-    }
-
-    private void NotifyPropertyChanged (String propertyName) {
-        if (onPropertyChanged != null)
-            getOnPropertyChanged().OnPropertyChanged(propertyName);
     }
 
 }
