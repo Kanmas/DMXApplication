@@ -1,5 +1,6 @@
 package com.example.quentinlehmann.dmxv2;
 
+import android.content.Context;
 import android.view.Display;
 import android.widget.Toast;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
  * Created by quentin.lehmann on 28/03/2018.
  */
 
-public class ModeleParametreGlobaux extends BaseModel {
+public class Configuration extends BaseModel {
 
     public String[] getTargetType () {
         return new String[] {"Projecteur", "Lyre"};
@@ -21,9 +22,8 @@ public class ModeleParametreGlobaux extends BaseModel {
     private String address;
     private String hostname;
     private String port;
-    FileOutputStream outputStream = null;
 
-    public ModeleParametreGlobaux ()
+    public Configuration ()
     {
 
     }
@@ -73,7 +73,7 @@ public class ModeleParametreGlobaux extends BaseModel {
     }
 
     public void Sauvegarder () throws IOException {
-        outputStream = openFileOutput
+        FileOutputStream outputStream = ParametreGlobaux.getCurrentInstance().openFileOutput( "Sauvegarder.json", Context.MODE_PRIVATE );
         outputStream.write( Json.Serialize( this ).getBytes() );
         if (outputStream!=null)
             outputStream.close();

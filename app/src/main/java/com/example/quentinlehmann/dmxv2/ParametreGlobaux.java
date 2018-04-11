@@ -25,21 +25,21 @@ public class ParametreGlobaux extends AppCompatActivity {
         return currentInstance;
     }
 
-    private ModeleParametreGlobaux model;
+    private Configuration model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_parametre_globaux);
         setCurrentInstance(this);
-        model = new ModeleParametreGlobaux();
+        model = new Configuration();
         try{
             ((Spinner)findViewById(R.id.SpinerTypeCibleParaGlobo)).setAdapter(new ArrayAdapter<String>(getCurrentInstance(), android.R.layout.simple_spinner_item, getCurrentInstance().getModel().getTargetType()));
         }catch (Exception ex){
             Toast.makeText(getCurrentInstance(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        model.setOnPropertyChanged(new ModeleParametreGlobaux.PropertyChangedListener() {
+        model.setOnPropertyChanged(new Configuration.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
                 switch (propertyName) {
@@ -139,11 +139,11 @@ public class ParametreGlobaux extends AppCompatActivity {
         } );
     }
 
-    public ModeleParametreGlobaux getModel() {
+    public Configuration getModel() {
         return model;
     }
 
-    public void setModel(ModeleParametreGlobaux model) {
+    public void setModel(Configuration model) {
         this.model = model;
     }
 
