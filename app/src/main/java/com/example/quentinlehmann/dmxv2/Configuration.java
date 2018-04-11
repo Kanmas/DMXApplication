@@ -8,9 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Created by quentin.lehmann on 28/03/2018.
- */
 
 public class Configuration extends BaseModel {
 
@@ -73,11 +70,38 @@ public class Configuration extends BaseModel {
     }
 
     public void Sauvegarder () throws IOException {
+        
         FileOutputStream outputStream = ParametreGlobaux.getCurrentInstance().openFileOutput( "Sauvegarder.json", Context.MODE_PRIVATE );
-        outputStream.write( Json.Serialize( this ).getBytes() );
+        outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
         if (outputStream!=null)
             outputStream.close();
         Toast.makeText(ParametreGlobaux.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();
+    }
+
+    public class Person {
+        private String nom;
+        private int age;
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public String getNom() {
+            return nom;
+        }
+
+        public void setNom(String nom) {
+            this.nom = nom;
+        }
+
+        @Override
+        public String toString() {
+            return "Nom: " + this.getNom() + "; Age: " + this.getAge();
+        }
     }
 
 }
