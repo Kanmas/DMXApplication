@@ -6,40 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.example.quentinlehmann.dmxv2.Changer_Couleur">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutRed"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarRed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutMelange"
-        tools:minWidth="60dp"></LinearLayout>
-
     <SeekBar
         android:id="@+id/seekBarBlue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
+        android:max="255"
+        android:progress="127"
         app:layout_constraintBottom_toTopOf="@+id/btnAnnulerCouleur"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutBlue"
-        app:layout_constraintVertical_bias="0.107" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutBlue"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarBlue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarGreen"
-        tools:minWidth="60dp"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/LayoutBlue" />
 
     <SeekBar
         android:id="@+id/seekBarGreen"
@@ -47,11 +27,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutBlue"
+        android:max="255"
+        android:progress="127"
+        app:layout_constraintBottom_toTopOf="@+id/LayoutBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGreen" />
+        app:layout_constraintTop_toBottomOf="@+id/LayoutGreen" />
 
     <LinearLayout
         android:id="@+id/linearLayoutMelange"
@@ -60,7 +42,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutRed"
+        app:layout_constraintBottom_toTopOf="@+id/LayoutRed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,25 +56,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutGreen"
+        android:max="255"
+        android:progress="127"
+        app:layout_constraintBottom_toTopOf="@+id/LayoutGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutRed"
-        app:layout_constraintVertical_bias="0.146" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutGreen"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarGreen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarRed"
-        tools:minWidth="60dp">
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/LayoutRed" />
 
     <Button
         android:id="@+id/btnAnnulerCouleur"
@@ -117,5 +87,35 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/LayoutRed"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarRed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutMelange"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutGreen"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarGreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarRed"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutBlue"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarBlue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarGreen"></LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

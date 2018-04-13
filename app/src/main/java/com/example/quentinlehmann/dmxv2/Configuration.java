@@ -78,6 +78,15 @@ public class Configuration extends BaseModel {
         Toast.makeText(ParametreGlobaux.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();
     }
 
+    public void SauvegarderCC () throws IOException {
+
+        FileOutputStream outputStream = Changer_Couleur.getCurrentInstance().openFileOutput( "SauvegarderChangerCouleur.json", Context.MODE_PRIVATE );
+        outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
+        if (outputStream!=null)
+            outputStream.close();
+        Toast.makeText(Changer_Couleur.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();
+    }
+
     public class Person {
         private String nom;
         private int age;
