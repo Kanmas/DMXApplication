@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -23,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 
 public class Changer_Couleur extends AppCompatActivity {
 
@@ -33,14 +36,14 @@ public class Changer_Couleur extends AppCompatActivity {
     public static Changer_Couleur getCurrentInstance () {
         return currentInstance;
     }
-    private Configuration modele;
+
+    private ColorPacket packet = new ColorPacket();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_changer__couleur );
         setCurrentInstance(this);
-        modele = new Configuration();
 
         ((LinearLayout)findViewById( R.id.LayoutRed )).setBackgroundColor( Color.rgb( 127, 0,0 ) );
         ((LinearLayout)findViewById( R.id.LayoutGreen )).setBackgroundColor( Color.rgb( 0, 127,0 ) );
@@ -53,6 +56,7 @@ public class Changer_Couleur extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 ((LinearLayout)findViewById( R.id.LayoutRed)).setBackgroundColor( Color.rgb( seekBar.getProgress(), 0, 0 ) );
                 ChangerLayoutMelange();
+                getCurrentInstance().packet.getCouleur().setRed( seekBar.getProgress() );
             }
 
             @Override
@@ -71,6 +75,7 @@ public class Changer_Couleur extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 ((LinearLayout)findViewById( R.id.LayoutBlue)).setBackgroundColor( Color.rgb(0, 0, seekBar.getProgress() ) );
                 ChangerLayoutMelange();
+                getCurrentInstance().packet.getCouleur().setBlue( seekBar.getProgress() );
             }
 
             @Override
@@ -90,6 +95,7 @@ public class Changer_Couleur extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 ((LinearLayout)findViewById( R.id.LayoutGreen)).setBackgroundColor( Color.rgb( 0, seekBar.getProgress(), 0 ) );
                 ChangerLayoutMelange();
+                getCurrentInstance().packet.getCouleur().setGreen( seekBar.getProgress() );
             }
 
             @Override
@@ -100,6 +106,31 @@ public class Changer_Couleur extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        } );
+
+        ((Button)findViewById( R.id.btnenvoyerCouleur )).setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Socket.getCurrentInstance().test();
+
+                try {
+                    int targetAddress = 0;
+                    try {
+                        targetAddress = Integer.parseInt( Configuration.getCurrentInstance().getAddress() );
+                    } catch (Exception ex){
+                        Toast.makeText( getCurrentInstance(), "Finally", Toast.LENGTH_SHORT ).show();
+                        targetAddress = 0;
+                    }
+
+                    packet.couleur.setTargetAddress( targetAddress );
+                    NetworkManager.getInstance().Send( Json.getInstance().Serialize( getCurrentInstance().packet ).toString(), InetAddress.getByName(Configuration.getCurrentInstance().getHostname()), Integer.parseInt( Configuration.getCurrentInstance().getPort()));
+
+                    Toast.makeText(Changer_Couleur.getCurrentInstance(), "Envoyer", Toast.LENGTH_SHORT).show();
+                } catch (Exception e){
+                    Toast.makeText(Changer_Couleur.getCurrentInstance(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         } );
 
@@ -126,43 +157,28 @@ public class Changer_Couleur extends AppCompatActivity {
                mBuilder.setPositiveButton( "Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        try{
-                            ((Spinner ) mView.findViewById(R.id.SpinerTypeCible)).setAdapter(new ArrayAdapter<String>(getCurrentInstance(), android.R.layout.simple_spinner_item, getCurrentInstance().getModel().getTargetType()));
-                        }catch (Exception ex){
-                            Toast.makeText(getCurrentInstance(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        ((Spinner)mView.findViewById(R.id.SpinerTypeCible)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                try {
-                                    getCurrentInstance().getModel().setType(getCurrentInstance().getModel().getTargetType()[i]);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Toast.makeText(getCurrentInstance(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
 
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
                         try {
-                            getCurrentInstance().getModel().SauvegarderCC();
+                            Configuration.getCurrentInstance().SauvegarderCC();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
 
                     });
-                modele.setOnPropertyChanged(new Configuration.PropertyChangedListener() {
+                Configuration.getCurrentInstance().setOnPropertyChanged(new Configuration.PropertyChangedListener() {
                     @Override
                     public void OnPropertyChanged(String propertyName) {
                         switch (propertyName) {
                             case "Type":
                                 break;
                             case "Address":
+                                try {
+                                    getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( Configuration.getCurrentInstance().getAddress() ) );
+                                } finally {
+                                    getCurrentInstance().packet.couleur.setTargetAddress( 0 );
+                                }
+
                                 break;
                             case "Port":
                                 break;
@@ -174,10 +190,11 @@ public class Changer_Couleur extends AppCompatActivity {
                     }
                 });
 
+                ((EditText)mView.findViewById( R.id.editextePortDistCC )).setText( Configuration.getCurrentInstance().getPort() );
+                ((EditText)mView.findViewById( R.id.editTextAddrCibleCC )).setText( Configuration.getCurrentInstance().getAddress() );
+                ((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( Configuration.getCurrentInstance().getHostname() );
 
-
-
-            (( EditText ) mView.findViewById( R.id.editTextAddrIPCC )).addTextChangedListener( new TextWatcher() {
+                (( EditText ) mView.findViewById( R.id.editTextAddrIPCC )).addTextChangedListener( new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -185,8 +202,7 @@ public class Changer_Couleur extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    Toast.makeText( getCurrentInstance(), "Ok", Toast.LENGTH_SHORT ).show();
-                    getCurrentInstance().getModel().setHostname(charSequence.toString());
+                    Configuration.getCurrentInstance().setHostname(charSequence.toString());
                 }
 
                 @Override
@@ -203,8 +219,7 @@ public class Changer_Couleur extends AppCompatActivity {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        Toast.makeText( getCurrentInstance(), "Ok2", Toast.LENGTH_SHORT ).show();
-                        getCurrentInstance().getModel().setAddress(charSequence.toString());
+                        Configuration.getCurrentInstance().setAddress(charSequence.toString());
                     }
 
                     @Override
@@ -221,9 +236,7 @@ public class Changer_Couleur extends AppCompatActivity {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                        Toast.makeText( getCurrentInstance(), "Ok3", Toast.LENGTH_SHORT ).show();
-                        getCurrentInstance().getModel().setPort(charSequence.toString());
+                        Configuration.getCurrentInstance().setPort(charSequence.toString());
                     }
 
                     @Override
@@ -232,24 +245,6 @@ public class Changer_Couleur extends AppCompatActivity {
                     }
                 });
 
-                ((Spinner)mView.findViewById(R.id.SpinerTypeCible)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(getCurrentInstance(), "salut", Toast.LENGTH_SHORT).show();
-                        try {
-                            getCurrentInstance().getModel().setType(getCurrentInstance().getModel().getTargetType()[i]);
-                        }
-                        catch (Exception ex)
-                        {
-                            Toast.makeText(getCurrentInstance(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
 
                 mBuilder.setNegativeButton( "Annuler", new DialogInterface.OnClickListener() {
                     @Override
@@ -269,14 +264,6 @@ public class Changer_Couleur extends AppCompatActivity {
         ((LinearLayout)findViewById( R.id.linearLayoutMelange )).setBackgroundColor( Color.rgb( (( SeekBar ) findViewById( R.id.seekBarRed )).getProgress(),
                 (( SeekBar ) findViewById( R.id.seekBarGreen )).getProgress(),
                 (( SeekBar ) findViewById( R.id.seekBarBlue )).getProgress()));
-    }
-
-    public Configuration getModel() {
-        return modele;
-    }
-
-    public void setModel(Configuration model) {
-        this.modele = modele;
     }
 }
 

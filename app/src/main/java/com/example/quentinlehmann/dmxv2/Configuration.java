@@ -1,12 +1,13 @@
 package com.example.quentinlehmann.dmxv2;
 
 import android.content.Context;
-import android.view.Display;
+import android.os.Environment;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.Inet4Address;
 
 
 public class Configuration extends BaseModel {
@@ -20,9 +21,29 @@ public class Configuration extends BaseModel {
     private String hostname;
     private String port;
 
+    private File mFile = null;
+    private static Configuration currentInstance;
+    private static void setCurrentInstance (Configuration configuration) {
+        Configuration.currentInstance = configuration;
+    }
+    public static Configuration getCurrentInstance () {
+        if (currentInstance == null) currentInstance = new Configuration();
+        return currentInstance;
+    }
+
     public Configuration ()
     {
 
+    }
+
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            //Toast.makeText( Changer_Couleur.getCurrentInstance(), "memoire externe dispo", Toast.LENGTH_LONG ).show();
+            return true;
+
+        }
+        return false;
     }
 
     public String getType() {
@@ -70,7 +91,8 @@ public class Configuration extends BaseModel {
     }
 
     public void Sauvegarder () throws IOException {
-        
+
+
         FileOutputStream outputStream = ParametreGlobaux.getCurrentInstance().openFileOutput( "Sauvegarder.json", Context.MODE_PRIVATE );
         outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
         if (outputStream!=null)
@@ -80,37 +102,15 @@ public class Configuration extends BaseModel {
 
     public void SauvegarderCC () throws IOException {
 
-        FileOutputStream outputStream = Changer_Couleur.getCurrentInstance().openFileOutput( "SauvegarderChangerCouleur.json", Context.MODE_PRIVATE );
+        try{
+        FileOutputStream outputStream = Changer_Couleur.getCurrentInstance().openFileOutput( "ParamètreCouleur.json", Context.MODE_PRIVATE );
         outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
         if (outputStream!=null)
             outputStream.close();
-        Toast.makeText(Changer_Couleur.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();
-    }
-
-    public class Person {
-        private String nom;
-        private int age;
-
-        public void setAge(int age) {
-            this.age = age;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public String getNom() {
-            return nom;
-        }
-
-        public void setNom(String nom) {
-            this.nom = nom;
-        }
-
-        @Override
-        public String toString() {
-            return "Nom: " + this.getNom() + "; Age: " + this.getAge();
+        Toast.makeText(Changer_Couleur.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();}
+        catch (Exception e){
+            Toast.makeText( Changer_Couleur.getCurrentInstance(), e.toString(), Toast.LENGTH_LONG ).show();
         }
     }
-
 }
+

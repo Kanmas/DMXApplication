@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class ParametreGlobaux extends AppCompatActivity {
 
-    private static ParametreGlobaux currentInstance;
+    public static ParametreGlobaux currentInstance;
     private static void setCurrentInstance (ParametreGlobaux parametreGlobaux) {
         ParametreGlobaux.currentInstance = parametreGlobaux;
     }
@@ -25,21 +25,13 @@ public class ParametreGlobaux extends AppCompatActivity {
         return currentInstance;
     }
 
-    private Configuration model;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_parametre_globaux);
         setCurrentInstance(this);
-        model = new Configuration();
-        try{
-            ((Spinner)findViewById(R.id.SpinerTypeCibleParaGlobo)).setAdapter(new ArrayAdapter<String>(getCurrentInstance(), android.R.layout.simple_spinner_item, getCurrentInstance().getModel().getTargetType()));
-        }catch (Exception ex){
-            Toast.makeText(getCurrentInstance(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
 
-        model.setOnPropertyChanged(new Configuration.PropertyChangedListener() {
+        Configuration.getCurrentInstance().setOnPropertyChanged(new Configuration.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
                 switch (propertyName) {
@@ -65,7 +57,7 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getCurrentInstance().getModel().setHostname(charSequence.toString());
+                Configuration.getCurrentInstance().setHostname(charSequence.toString());
             }
 
             @Override
@@ -82,7 +74,7 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getCurrentInstance().getModel().setAddress(charSequence.toString());
+                Configuration.getCurrentInstance().setAddress(charSequence.toString());
             }
 
             @Override
@@ -99,7 +91,7 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getCurrentInstance().getModel().setPort(charSequence.toString());
+                Configuration.getCurrentInstance().setPort(charSequence.toString());
             }
 
             @Override
@@ -108,43 +100,18 @@ public class ParametreGlobaux extends AppCompatActivity {
             }
         });
 
-        ((Spinner)findViewById(R.id.SpinerTypeCibleParaGlobo)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                try {
-                    getCurrentInstance().getModel().setType(getCurrentInstance().getModel().getTargetType()[i]);
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getCurrentInstance(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         (findViewById( R.id.btnOKParaGlobo )).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    getCurrentInstance().getModel().Sauvegarder();
+                    Configuration.getCurrentInstance().Sauvegarder();
                 } catch (IOException e) {
                     Toast.makeText( getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
                     e.printStackTrace();
                 }
             }
         } );
-    }
-
-    public Configuration getModel() {
-        return model;
-    }
-
-    public void setModel(Configuration model) {
-        this.model = model;
     }
 
 
