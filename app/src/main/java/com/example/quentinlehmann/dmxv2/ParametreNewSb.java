@@ -32,7 +32,7 @@ public class ParametreNewSb extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_parametre_new_sb );
-
+        currentInstance = this;
             Button btn = findViewById( R.id.btnOKNewSb );
         ((EditText )findViewById( R.id.editTextPortNewSb )).setText( Configuration.getCurrentInstance().getPort() );
         ((EditText)findViewById( R.id.editTextaddrCibleNewSb )).setText( Configuration.getCurrentInstance().getAddress() );
@@ -47,7 +47,6 @@ public class ParametreNewSb extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Configuration.getCurrentInstance().setHostname(charSequence.toString());
-                Toast.makeText(ParametreNewSb.getCurrentInstance() ,  "IPOK", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -65,7 +64,6 @@ public class ParametreNewSb extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Configuration.getCurrentInstance().setAddress(charSequence.toString());
-                Toast.makeText(ParametreNewSb.getCurrentInstance() ,  "addrCibleoK", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -83,7 +81,6 @@ public class ParametreNewSb extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Configuration.getCurrentInstance().setPort(charSequence.toString());
-                Toast.makeText(ParametreNewSb.getCurrentInstance() ,  "port ok", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -96,11 +93,15 @@ public class ParametreNewSb extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-
                     Configuration.getCurrentInstance().SauvegarderSB();
+
                     GererNewSBColor(view);
                 } catch (IOException e) {
-                    Toast.makeText(getCurrentInstance() ,  e.getMessage(), Toast.LENGTH_LONG).show();
+
+                        Toast.makeText( ParametreNewSb.getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
+
+                }catch (Exception e) {
+                    Toast.makeText( ParametreNewSb.getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
                 }
             }
 
@@ -117,7 +118,6 @@ public class ParametreNewSb extends AppCompatActivity {
                         } finally {
                             getCurrentInstance().packet.couleur.setTargetAddress( 0 );
                         }
-
                         break;
                     case "Port":
                         break;
@@ -128,7 +128,6 @@ public class ParametreNewSb extends AppCompatActivity {
                 }
             }
         });
-
         }
     public void GererNewSBColor (View view){
         startActivity( new Intent( this, GererNewSBColor.class ) );

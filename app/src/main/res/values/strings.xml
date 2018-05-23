@@ -20,4 +20,6 @@
     <string name="sauvegarder">Sauvegarder</string>
     <string name="nom_de_la_story_board">Nom de la Story Board</string>
     <string name="title_activity_gerer_new_sbcolor">GererNewSBColor</string>
+    <string name="temps">Temps</string>
+    <string name="ms">ms</string>
 </resources>
