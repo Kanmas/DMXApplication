@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 public class ParametreNewSb extends AppCompatActivity {
 
@@ -89,9 +90,12 @@ public class ParametreNewSb extends AppCompatActivity {
             }
         });
 
+
+
         btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
                     Configuration.getCurrentInstance().SauvegarderSB();
 
@@ -113,6 +117,7 @@ public class ParametreNewSb extends AppCompatActivity {
                     case "Type":
                         break;
                     case "Address":
+
                         try {
                             getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( Configuration.getCurrentInstance().getAddress() ) );
                         } finally {

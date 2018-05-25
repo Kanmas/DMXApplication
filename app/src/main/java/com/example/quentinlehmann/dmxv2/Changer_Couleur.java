@@ -125,7 +125,7 @@ public class Changer_Couleur extends AppCompatActivity {
                     }
 
                     packet.couleur.setTargetAddress( targetAddress );
-                    NetworkManager.getInstance().Send( Json.getInstance().Serialize( getCurrentInstance().packet ).toString(), InetAddress.getByName(Configuration.getCurrentInstance().getHostname()), Integer.parseInt( Configuration.getCurrentInstance().getPort()));
+                    NetworkManager.getInstance().SendFragment( Json.getInstance().Serialize( getCurrentInstance().packet ).toString(), InetAddress.getByName(Configuration.getCurrentInstance().getHostname()), Integer.parseInt( Configuration.getCurrentInstance().getPort()));
 
                     Toast.makeText(Changer_Couleur.getCurrentInstance(), "Envoyer", Toast.LENGTH_SHORT).show();
                 } catch (Exception e){

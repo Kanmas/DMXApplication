@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class ChangerCouleurSB extends AppCompatActivity {
 
@@ -36,7 +39,24 @@ public class ChangerCouleurSB extends AppCompatActivity {
         ((LinearLayout)findViewById( R.id.linearLayoutGreenSb )).setBackgroundColor( Color.rgb( 0, 127,0 ) );
         ((LinearLayout)findViewById( R.id.linearLayoutBlueSb )).setBackgroundColor( Color.rgb(0 , 0,127 ) );
         ((LinearLayout)findViewById( R.id.linearLayoutMelangeSb )).setBackgroundColor( Color.rgb(127 , 127,127 ) );
-        ((EditText)findViewById( R.id.editTextTemps )).setText( tmps );
+
+        ((EditText)findViewById( R.id.editTextTemps )).addTextChangedListener( new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getCurrentInstance().packet.getCouleur().setTime( Integer.parseInt( charSequence.toString()) );
+                Toast.makeText( ChangerCouleurSB.getCurrentInstance(), charSequence.toString(),Toast.LENGTH_LONG ).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        } );
 
         ((SeekBar )findViewById( R.id.seekBarRedSb )).setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
@@ -101,8 +121,17 @@ public class ChangerCouleurSB extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Json.getInstance().Serialize( getCurrentInstance().packet ).toString();
-                Toast.makeText( ChangerCouleurSB.getCurrentInstance(), "Sauvegarder",Toast.LENGTH_LONG ).show();
+                int targetAddress = 0;
+                try {
+                    targetAddress = Integer.parseInt( Configuration.getCurrentInstance().getAddress() );
+                } catch (Exception ex){
+                    Toast.makeText( getCurrentInstance(), "Finally", Toast.LENGTH_SHORT ).show();
+                    targetAddress = 0;
+                }
+
+                packet.couleur.setTargetAddress( targetAddress );
+
+                Toast.makeText(getCurrentInstance(), "Enregistrer", Toast.LENGTH_SHORT).show();
                 GererNewSBColor(view);
 
             }
