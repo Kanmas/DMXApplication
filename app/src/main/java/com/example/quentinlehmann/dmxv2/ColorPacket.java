@@ -25,8 +25,8 @@ public class ColorPacket {
         public int red;
         public int blue;
         public int green;
+        public int white = 255;
         public int time;
-        public int intensity = 255;
 
         public int getTime() {
             return time;
@@ -77,11 +77,12 @@ public class ColorPacket {
         }
 
         public int getIntensity() {
-            return intensity;
+            return white;
         }
 
         public void setIntensity(int intensity) {
-            this.intensity = intensity;
+            this.white = intensity;
         }
     }
 }
+

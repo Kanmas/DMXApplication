@@ -10,20 +10,32 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GererNewSBColor extends AppCompatActivity {
+
+    private static GererNewSBColor currentInstance;
+    private static void setCurrentInstance (GererNewSBColor gererNewSBColor) {
+        GererNewSBColor.currentInstance = gererNewSBColor;
+    }
+    public static GererNewSBColor getCurrentInstance () {
+        return currentInstance;
+    }
+
+    private ColorPacket packet = new ColorPacket();
 
     private ListView mListView;
     private String[] prenoms = new String[]{
-            "Liste de Couleur de la SB", "Benoit", "Cyril", "David", "Eloise", "Florent",
-            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
-            "Yann", "SB"
+            "Liste de Couleur de la SB",
     };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
+        currentInstance=this;
         setContentView( R.layout.activity_gerer_new_sbcolor );
 
         mListView = (ListView) findViewById(R.id.ListViewNewSBCOlor);
@@ -43,6 +55,7 @@ public class GererNewSBColor extends AppCompatActivity {
             }
         } );
     }
+
 
     public void ChangerCouleurSB (View view){
         startActivity( new Intent( this, ChangerCouleurSB.class) );
