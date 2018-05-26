@@ -134,7 +134,7 @@ public class ChangerCouleurSB extends AppCompatActivity {
 
                 int targetAddress = 0;
                 try {
-                    targetAddress = Integer.parseInt( Configuration.getCurrentInstance().getAddress() );
+                    targetAddress = Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() );
                 } catch (Exception ex){
                     Toast.makeText( getCurrentInstance(), "Finally", Toast.LENGTH_SHORT ).show();
                     targetAddress = 0;

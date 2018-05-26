@@ -23,9 +23,13 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
+import com.example.quentinlehmann.dmxv2.JSON.PacketConstructor;
+
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Changer_Couleur extends AppCompatActivity {
 
@@ -145,22 +149,35 @@ public class Changer_Couleur extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
+                String json = PacketConstructor.constructColorPacket(colorWrapper);
                 try {
+                    NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
+                    Toast.makeText(Changer_Couleur.this, "Sended", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(Changer_Couleur.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                /*
+                try {
+
                     int targetAddress = 0;
                     try {
-                        targetAddress = Integer.parseInt( Configuration.getCurrentInstance().getAddress() );
+                        targetAddress = Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() );
                     } catch (Exception ex){
                         Toast.makeText( getCurrentInstance(), "Finally", Toast.LENGTH_SHORT ).show();
                         targetAddress = 0;
                     }
 
                     packet.couleur.setTargetAddress( targetAddress );
-                    NetworkManager.getInstance().SendFragment( Json.getInstance().Serialize( getCurrentInstance().packet ).toString(), InetAddress.getByName(Configuration.getCurrentInstance().getHostname()), Integer.parseInt( Configuration.getCurrentInstance().getPort()));
+                    NetworkManager.getInstance().SendFragment( Json.getInstance().Serialize( getCurrentInstance().packet ).toString(), InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt( ConfigurationOld.getCurrentInstance().getPort()));
 
                     Toast.makeText(Changer_Couleur.getCurrentInstance(), "Envoyer", Toast.LENGTH_SHORT).show();
                 } catch (Exception e){
                     Toast.makeText(Changer_Couleur.getCurrentInstance(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+                */
             }
         } );
 
@@ -180,67 +197,73 @@ public class Changer_Couleur extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.MenuChangerCouleur:
+                final Configuration localeConfiguration = new Configuration(Configuration.getInstance());
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder( Changer_Couleur.this );
                 final View mView = getLayoutInflater().inflate( R.layout.boite_dialogue_settings, null);
                 mBuilder.setView( mView );
 
 
-               mBuilder.setPositiveButton( "Valider", new DialogInterface.OnClickListener() {
+                mBuilder.setPositiveButton( "Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Toast.makeText(Changer_Couleur.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
+                        Configuration.getInstance().ApplyConfiguration(localeConfiguration);
                         try {
-                            Configuration.getCurrentInstance().SauvegarderCC();
+                            ConfigurationOld.getCurrentInstance().SauvegarderCC();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-
-                    });
-                Configuration.getCurrentInstance().setOnPropertyChanged(new Configuration.PropertyChangedListener() {
-                    @Override
-                    public void OnPropertyChanged(String propertyName) {
-                        switch (propertyName) {
-                            case "Type":
-                                break;
-                            case "Address":
-                                try {
-                                    getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( Configuration.getCurrentInstance().getAddress() ) );
-                                } finally {
-                                    getCurrentInstance().packet.couleur.setTargetAddress( 0 );
-                                }
-
-                                break;
-                            case "Port":
-                                break;
-                            case "Hostname":
-                                break;
-                            default:
-                                break;
-                        }
-                    }
                 });
+                /*
+                ConfigurationOld.getCurrentInstance().setOnPropertyChanged(new ConfigurationOld.PropertyChangedListener() {
+                        @Override
+                        public void OnPropertyChanged(String propertyName) {
+                            switch (propertyName) {
+                                case "Type":
+                                    break;
+                                case "Address":
+                                    try {
+                                        getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() ) );
+                                    } finally {
+                                        getCurrentInstance().packet.couleur.setTargetAddress( 0 );
+                                    }
 
-                ((EditText)mView.findViewById( R.id.editextePortDistCC )).setText( Configuration.getCurrentInstance().getPort() );
-                ((EditText)mView.findViewById( R.id.editTextAddrCibleCC )).setText( Configuration.getCurrentInstance().getAddress() );
-                ((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( Configuration.getCurrentInstance().getHostname() );
+                                    break;
+                                case "Port":
+                                    break;
+                                case "Hostname":
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                });
+*/
+                //((EditText)mView.findViewById( R.id.editextePortDistCC )).setText( ConfigurationOld.getCurrentInstance().getPort() );
+                ((EditText)mView.findViewById( R.id.editextePortDistCC )).setText( String.valueOf(localeConfiguration.getSendPort()) );
+                //((EditText)mView.findViewById( R.id.editTextAddrCibleCC )).setText( ConfigurationOld.getCurrentInstance().getAddress() );
+                ((EditText)mView.findViewById( R.id.editTextAddrCibleCC )).setText( String.valueOf(localeConfiguration.getTargetAddress()) );
+                //((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( ConfigurationOld.getCurrentInstance().getHostname() );
+                ((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( localeConfiguration.getHostname().toString() );
 
                 (( EditText ) mView.findViewById( R.id.editTextAddrIPCC )).addTextChangedListener( new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+                    }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    Configuration.getCurrentInstance().setHostname(charSequence.toString());
-                }
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        //ConfigurationOld.getCurrentInstance().setHostname(charSequence.toString());
+                        localeConfiguration.setHostname(charSequence.toString());
+                    }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
+                    @Override
+                    public void afterTextChanged(Editable editable) {
 
-                }
-            } );
+                    }
+                } );
 
                 ((EditText) mView.findViewById(R.id.editTextAddrCibleCC)).addTextChangedListener(new TextWatcher() {
                     @Override
@@ -250,7 +273,8 @@ public class Changer_Couleur extends AppCompatActivity {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        Configuration.getCurrentInstance().setAddress(charSequence.toString());
+                        //ConfigurationOld.getCurrentInstance().setAddress(charSequence.toString());
+                        localeConfiguration.setTargetAddress(charSequence.toString());
                     }
 
                     @Override
@@ -267,7 +291,8 @@ public class Changer_Couleur extends AppCompatActivity {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        Configuration.getCurrentInstance().setPort(charSequence.toString());
+                        //ConfigurationOld.getCurrentInstance().setPort(charSequence.toString());
+                        localeConfiguration.setSendPort(charSequence.toString());
                     }
 
                     @Override

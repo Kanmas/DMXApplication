@@ -7,17 +7,17 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class ColorPacket {
-    public ColorWrapper couleur = new ColorWrapper();
+    public ColorPacketWrapper couleur = new ColorPacketWrapper();
 
-    public ColorWrapper getCouleur() {
+    public ColorPacketWrapper getCouleur() {
         return couleur;
     }
 
-    public void setCouleur(ColorWrapper couleur) {
+    public void setCouleur(ColorPacketWrapper couleur) {
         this.couleur = couleur;
     }
 
-    public class ColorWrapper
+    public class ColorPacketWrapper
     {
 
         public String target = "PROJO";

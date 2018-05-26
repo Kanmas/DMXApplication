@@ -31,7 +31,7 @@ public class ParametreGlobaux extends AppCompatActivity {
         setContentView(R.layout.activity_parametre_globaux);
         setCurrentInstance(this);
 
-        Configuration.getCurrentInstance().setOnPropertyChanged(new Configuration.PropertyChangedListener() {
+        ConfigurationOld.getCurrentInstance().setOnPropertyChanged(new ConfigurationOld.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
                 switch (propertyName) {
@@ -57,7 +57,7 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Configuration.getCurrentInstance().setHostname(charSequence.toString());
+                ConfigurationOld.getCurrentInstance().setHostname(charSequence.toString());
             }
 
             @Override
@@ -74,7 +74,7 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Configuration.getCurrentInstance().setAddress(charSequence.toString());
+                ConfigurationOld.getCurrentInstance().setAddress(charSequence.toString());
             }
 
             @Override
@@ -91,7 +91,7 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Configuration.getCurrentInstance().setPort(charSequence.toString());
+                ConfigurationOld.getCurrentInstance().setPort(charSequence.toString());
             }
 
             @Override
@@ -105,7 +105,7 @@ public class ParametreGlobaux extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Configuration.getCurrentInstance().Sauvegarder();
+                    ConfigurationOld.getCurrentInstance().Sauvegarder();
                 } catch (IOException e) {
                     Toast.makeText( getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
                     e.printStackTrace();

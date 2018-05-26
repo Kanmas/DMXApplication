@@ -35,9 +35,9 @@ public class ParametreNewSb extends AppCompatActivity {
         setContentView( R.layout.activity_parametre_new_sb );
         currentInstance = this;
             Button btn = findViewById( R.id.btnOKNewSb );
-        ((EditText )findViewById( R.id.editTextPortNewSb )).setText( Configuration.getCurrentInstance().getPort() );
-        ((EditText)findViewById( R.id.editTextaddrCibleNewSb )).setText( Configuration.getCurrentInstance().getAddress() );
-        ((EditText)findViewById( R.id.editTextAddrIPNewsb )).setText( Configuration.getCurrentInstance().getHostname() );
+        ((EditText )findViewById( R.id.editTextPortNewSb )).setText( ConfigurationOld.getCurrentInstance().getPort() );
+        ((EditText)findViewById( R.id.editTextaddrCibleNewSb )).setText( ConfigurationOld.getCurrentInstance().getAddress() );
+        ((EditText)findViewById( R.id.editTextAddrIPNewsb )).setText( ConfigurationOld.getCurrentInstance().getHostname() );
 
         (( EditText )findViewById( R.id.editTextAddrIPNewsb )).addTextChangedListener( new TextWatcher() {
             @Override
@@ -47,7 +47,7 @@ public class ParametreNewSb extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Configuration.getCurrentInstance().setHostname(charSequence.toString());
+                ConfigurationOld.getCurrentInstance().setHostname(charSequence.toString());
             }
 
             @Override
@@ -64,7 +64,7 @@ public class ParametreNewSb extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Configuration.getCurrentInstance().setAddress(charSequence.toString());
+                ConfigurationOld.getCurrentInstance().setAddress(charSequence.toString());
             }
 
             @Override
@@ -81,7 +81,7 @@ public class ParametreNewSb extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Configuration.getCurrentInstance().setPort(charSequence.toString());
+                ConfigurationOld.getCurrentInstance().setPort(charSequence.toString());
             }
 
             @Override
@@ -97,7 +97,7 @@ public class ParametreNewSb extends AppCompatActivity {
             public void onClick(View view) {
 
                 try {
-                    Configuration.getCurrentInstance().SauvegarderSB();
+                    ConfigurationOld.getCurrentInstance().SauvegarderSB();
 
                     GererNewSBColor(view);
                 } catch (IOException e) {
@@ -110,7 +110,7 @@ public class ParametreNewSb extends AppCompatActivity {
             }
 
         });
-        Configuration.getCurrentInstance().setOnPropertyChanged(new Configuration.PropertyChangedListener() {
+        ConfigurationOld.getCurrentInstance().setOnPropertyChanged(new ConfigurationOld.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
                 switch (propertyName) {
@@ -119,7 +119,7 @@ public class ParametreNewSb extends AppCompatActivity {
                     case "Address":
 
                         try {
-                            getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( Configuration.getCurrentInstance().getAddress() ) );
+                            getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() ) );
                         } finally {
                             getCurrentInstance().packet.couleur.setTargetAddress( 0 );
                         }

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.Inet4Address;
 
 
-public class Configuration extends BaseModel {
+public class ConfigurationOld extends BaseModel {
 
     public String[] getTargetType () {
         return new String[] {"Projecteur", "Lyre"};
@@ -22,16 +22,16 @@ public class Configuration extends BaseModel {
     private String port;
 
     private File mFile = null;
-    private static Configuration currentInstance;
-    private static void setCurrentInstance (Configuration configuration) {
-        Configuration.currentInstance = configuration;
+    private static ConfigurationOld currentInstance;
+    private static void setCurrentInstance (ConfigurationOld ConfigurationOld) {
+        ConfigurationOld.currentInstance = ConfigurationOld;
     }
-    public static Configuration getCurrentInstance () {
-        if (currentInstance == null) currentInstance = new Configuration();
+    public static ConfigurationOld getCurrentInstance () {
+        if (currentInstance == null) currentInstance = new ConfigurationOld();
         return currentInstance;
     }
 
-    public Configuration ()
+    public ConfigurationOld ()
     {
 
     }
