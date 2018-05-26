@@ -33,25 +33,44 @@ import java.net.UnknownHostException;
 
 public class Changer_Couleur extends AppCompatActivity {
 
+    /**
+     * Renseigne le niveau de rouge au démarrage de l'interface
+     */
+    private static final int BASE_RED_BALANCE = 127;
+    /**
+     * Renseigne le niveau de vert au démarrage de l'interface
+     */
+    private static final int BASE_GREEN_BALANCE = 127;
+    /**
+     * Renseigne le niveau de bleu au démarrage de l'interface
+     */
+    private static final int BASE_BLUE_BALANCE = 127;
+
+    /**
+     * Sert à accéder à l'instance
+     */
     private static Changer_Couleur currentInstance;
-    private static void setCurrentInstance (Changer_Couleur changer_couleur) {
-        Changer_Couleur.currentInstance = changer_couleur;
-    }
-    public static Changer_Couleur getCurrentInstance () {
-        return currentInstance;
-    }
 
-    private ColorPacket packet = new ColorPacket();
-
+    /**
+     * Représentation de la couleur afficher dans l'interface
+     */
     private ColorWrapper colorWrapper = new ColorWrapper();
 
-    // layout affichant la couleur rouge
+    /**
+     * Layout qui sert à afficher la couleur rouge
+     */
     private LinearLayout redLayout;
-    // layout affichant la couleur bleu
+    /**
+     * Layout qui sert à afficher la couleur bleu
+     */
     private LinearLayout blueLayout;
-    // layout affichant la couleur verte
+    /**
+     * Layout affichant la couleur verte
+     */
     private LinearLayout greenLayout;
-    // layout affichant le melange de couleur
+    /**
+     * Layout affichant le melange de couleur
+     */
     private LinearLayout blendLayout;
 
     @Override
@@ -60,6 +79,7 @@ public class Changer_Couleur extends AppCompatActivity {
         setContentView( R.layout.activity_changer__couleur );
         setCurrentInstance(this);
 
+        // renseigne les layouts
         redLayout = findViewById(R.id.LayoutRed);
         greenLayout = findViewById(R.id.LayoutGreen);
         blueLayout = findViewById(R.id.LayoutBlue);
@@ -69,24 +89,25 @@ public class Changer_Couleur extends AppCompatActivity {
         colorWrapper.setOnPropertyChanged(new BaseModel.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
-                switch (propertyName) {
-                    case ColorWrapper.RED:
-                        redLayout.setBackgroundColor(colorWrapper.getRedBalance());
-                        break;
-                    case ColorWrapper.GREEN:
-                        greenLayout.setBackgroundColor(colorWrapper.getGreenBalance());
-                        break;
-                    case ColorWrapper.BLUE:
-                        blueLayout.setBackgroundColor(colorWrapper.getBlueBalance());
-                        break;
-                }
-                blendLayout.setBackgroundColor(colorWrapper.getBlendedBalance());
+            switch (propertyName) {
+                case ColorWrapper.RED:
+                    redLayout.setBackgroundColor(colorWrapper.getRedBalance());
+                    break;
+                case ColorWrapper.GREEN:
+                    greenLayout.setBackgroundColor(colorWrapper.getGreenBalance());
+                    break;
+                case ColorWrapper.BLUE:
+                    blueLayout.setBackgroundColor(colorWrapper.getBlueBalance());
+                    break;
+            }
+            blendLayout.setBackgroundColor(colorWrapper.getBlendedBalance());
             }
         });
 
-        colorWrapper.setRed(127);
-        colorWrapper.setGreen(127);
-        colorWrapper.setBlue(127);
+        // intialisation
+        colorWrapper.setRed(BASE_RED_BALANCE);
+        colorWrapper.setGreen(BASE_GREEN_BALANCE);
+        colorWrapper.setBlue(BASE_BLUE_BALANCE);
 
         // initilisation du curseur rouge
         ((SeekBar)findViewById( R.id.seekBarRed )).setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
@@ -153,7 +174,7 @@ public class Changer_Couleur extends AppCompatActivity {
                 String json = PacketConstructor.constructColorPacket(colorWrapper);
                 try {
                     NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
-                    Toast.makeText(Changer_Couleur.this, "Sended", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Changer_Couleur.this, "Sent", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(Changer_Couleur.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -314,6 +335,23 @@ public class Changer_Couleur extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * Reseigne le singleton
+     * @param changer_couleur
+     */
+    private static void setCurrentInstance (Changer_Couleur changer_couleur) {
+        Changer_Couleur.currentInstance = changer_couleur;
+    }
+
+    /**
+     * Renvoie le singleton
+     * @return currentInstance
+     */
+    public static Changer_Couleur getCurrentInstance () {
+        return currentInstance;
     }
 }
 

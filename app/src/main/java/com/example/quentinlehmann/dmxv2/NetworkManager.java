@@ -13,26 +13,37 @@ import java.util.List;
 
 
 /**
- * Created by quentin.lehmann on 09/05/2018.
+ * Sert à gérer les communications avec le serveur
  */
-
 public class NetworkManager {
 
-    public  int mtu = 20;
+    /**
+     * Représente la taille maximum d'un paquet
+     */
+    public int mtu = 20;
 
-    // Singleton pattern
+    /**
+     * Instance pour le singleton
+     */
     private static NetworkManager instance;
 
+    /**
+     * Renvoie l'instance de NetworkManager
+     * @return networkManager
+     */
     public static NetworkManager getInstance() {
         if (instance == null) instance = new NetworkManager();
         return instance;
     }
-    // end Singleton pattern
 
-    // Fields
+    /**
+     * Canal de communication
+     */
     private DatagramSocket socket;
-    // end Fields
 
+    /**
+     * Initialise une nouvelle instance de la classe NetworkManager. Constructeur privé pour restreindre le nombre d'instance.
+     */
     private NetworkManager ()
     {
         try {
@@ -42,6 +53,12 @@ public class NetworkManager {
         }
     }
 
+    /**
+     * Envoie un message à l'hôte renseigné sur le port renseigné
+     * @param data
+     * @param receiverAddress
+     * @param port
+     */
     public void Send (final String data, final InetAddress receiverAddress, final int port)
     {
         Thread thread = new Thread(new Runnable() {
@@ -66,6 +83,12 @@ public class NetworkManager {
         thread.start();
     }
 
+    /**
+     * Envoie un message à l'hôte renseigné sur le port renseigné. Si le message dépasse la taille maximal d'un paquet, il sera fragmenté.
+     * @param message
+     * @param receiverAddress
+     * @param port
+     */
     public void SendFragment (String message, InetAddress receiverAddress, int port){
         int mLength = message.length();
         int packetCount = mLength/mtu;
