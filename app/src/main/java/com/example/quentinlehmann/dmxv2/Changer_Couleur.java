@@ -39,24 +39,57 @@ public class Changer_Couleur extends AppCompatActivity {
 
     private ColorPacket packet = new ColorPacket();
 
+    private ColorWrapper colorWrapper = new ColorWrapper();
+
+    // layout affichant la couleur rouge
+    private LinearLayout redLayout;
+    // layout affichant la couleur bleu
+    private LinearLayout blueLayout;
+    // layout affichant la couleur verte
+    private LinearLayout greenLayout;
+    // layout affichant le melange de couleur
+    private LinearLayout blendLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_changer__couleur );
         setCurrentInstance(this);
 
-        ((LinearLayout)findViewById( R.id.LayoutRed )).setBackgroundColor( Color.rgb( 127, 0,0 ) );
-        ((LinearLayout)findViewById( R.id.LayoutGreen )).setBackgroundColor( Color.rgb( 0, 127,0 ) );
-        ((LinearLayout)findViewById( R.id.LayoutBlue )).setBackgroundColor( Color.rgb(0 , 0,127 ) );
-        ((LinearLayout)findViewById( R.id.linearLayoutMelange )).setBackgroundColor( Color.rgb(127 , 127,127 ) );
+        redLayout = findViewById(R.id.LayoutRed);
+        greenLayout = findViewById(R.id.LayoutGreen);
+        blueLayout = findViewById(R.id.LayoutBlue);
+        blendLayout = findViewById(R.id.linearLayoutMelange);
 
+        // initialisation de l'écoute des champs du modèle
+        colorWrapper.setOnPropertyChanged(new BaseModel.PropertyChangedListener() {
+            @Override
+            public void OnPropertyChanged(String propertyName) {
+                switch (propertyName) {
+                    case ColorWrapper.RED:
+                        redLayout.setBackgroundColor(colorWrapper.getRedBalance());
+                        break;
+                    case ColorWrapper.GREEN:
+                        greenLayout.setBackgroundColor(colorWrapper.getGreenBalance());
+                        break;
+                    case ColorWrapper.BLUE:
+                        blueLayout.setBackgroundColor(colorWrapper.getBlueBalance());
+                        break;
+                }
+                blendLayout.setBackgroundColor(colorWrapper.getBlendedBalance());
+            }
+        });
+
+        colorWrapper.setRed(127);
+        colorWrapper.setGreen(127);
+        colorWrapper.setBlue(127);
+
+        // initilisation du curseur rouge
         ((SeekBar)findViewById( R.id.seekBarRed )).setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                ((LinearLayout)findViewById( R.id.LayoutRed)).setBackgroundColor( Color.rgb( seekBar.getProgress(), 0, 0 ) );
-                ChangerLayoutMelange();
-                getCurrentInstance().packet.getCouleur().setRed( seekBar.getProgress() );
+                colorWrapper.setRed(i);
             }
 
             @Override
@@ -69,13 +102,12 @@ public class Changer_Couleur extends AppCompatActivity {
             }
         } );
 
+        // initialisation du curseur bleu
         ((SeekBar)findViewById( R.id.seekBarBlue)).setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                ((LinearLayout)findViewById( R.id.LayoutBlue)).setBackgroundColor( Color.rgb(0, 0, seekBar.getProgress() ) );
-                ChangerLayoutMelange();
-                getCurrentInstance().packet.getCouleur().setBlue( seekBar.getProgress() );
+                colorWrapper.setBlue(i);
             }
 
             @Override
@@ -89,13 +121,12 @@ public class Changer_Couleur extends AppCompatActivity {
             }
         } );
 
+        // initialisation du curseur vert
         ((SeekBar)findViewById( R.id.seekBarGreen )).setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                ((LinearLayout)findViewById( R.id.LayoutGreen)).setBackgroundColor( Color.rgb( 0, seekBar.getProgress(), 0 ) );
-                ChangerLayoutMelange();
-                getCurrentInstance().packet.getCouleur().setGreen( seekBar.getProgress() );
+                colorWrapper.setGreen(i);
             }
 
             @Override
@@ -109,12 +140,11 @@ public class Changer_Couleur extends AppCompatActivity {
             }
         } );
 
-        ((Button)findViewById( R.id.btnenvoyerCouleur )).setOnClickListener( new View.OnClickListener() {
+        // intialisation du bouton d'envoi de couleur
+        (findViewById( R.id.btnenvoyerCouleur )).setOnClickListener( new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
-                //Socket.getCurrentInstance().test();
-
                 try {
                     int targetAddress = 0;
                     try {
@@ -135,6 +165,7 @@ public class Changer_Couleur extends AppCompatActivity {
         } );
 
         }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //ajoute les entrées de menu_test à l'ActionBar
@@ -258,12 +289,6 @@ public class Changer_Couleur extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void ChangerLayoutMelange (){
-        ((LinearLayout)findViewById( R.id.linearLayoutMelange )).setBackgroundColor( Color.rgb( (( SeekBar ) findViewById( R.id.seekBarRed )).getProgress(),
-                (( SeekBar ) findViewById( R.id.seekBarGreen )).getProgress(),
-                (( SeekBar ) findViewById( R.id.seekBarBlue )).getProgress()));
     }
 }
 
