@@ -173,32 +173,13 @@ public class Changer_Couleur extends AppCompatActivity {
 
                 String json = PacketConstructor.constructColorPacket(colorWrapper);
                 try {
-                    NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
-                    Toast.makeText(Changer_Couleur.this, "Sent", Toast.LENGTH_SHORT).show();
+                    //NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
+                    NetworkManager.getInstance().SendFragment( json, Configuration.getInstance().getHostname(), Configuration.getInstance().getSendPort() );
+                    Toast.makeText(Changer_Couleur.this, "Sent: " + json, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(Changer_Couleur.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
-                /*
-                try {
-
-                    int targetAddress = 0;
-                    try {
-                        targetAddress = Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() );
-                    } catch (Exception ex){
-                        Toast.makeText( getCurrentInstance(), "Finally", Toast.LENGTH_SHORT ).show();
-                        targetAddress = 0;
-                    }
-
-                    packet.couleur.setTargetAddress( targetAddress );
-                    NetworkManager.getInstance().SendFragment( Json.getInstance().Serialize( getCurrentInstance().packet ).toString(), InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt( ConfigurationOld.getCurrentInstance().getPort()));
-
-                    Toast.makeText(Changer_Couleur.getCurrentInstance(), "Envoyer", Toast.LENGTH_SHORT).show();
-                } catch (Exception e){
-                    Toast.makeText(Changer_Couleur.getCurrentInstance(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                */
             }
         } );
 
@@ -236,37 +217,10 @@ public class Changer_Couleur extends AppCompatActivity {
                         }
                     }
                 });
-                /*
-                ConfigurationOld.getCurrentInstance().setOnPropertyChanged(new ConfigurationOld.PropertyChangedListener() {
-                        @Override
-                        public void OnPropertyChanged(String propertyName) {
-                            switch (propertyName) {
-                                case "Type":
-                                    break;
-                                case "Address":
-                                    try {
-                                        getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() ) );
-                                    } finally {
-                                        getCurrentInstance().packet.couleur.setTargetAddress( 0 );
-                                    }
 
-                                    break;
-                                case "Port":
-                                    break;
-                                case "Hostname":
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                });
-*/
-                //((EditText)mView.findViewById( R.id.editextePortDistCC )).setText( ConfigurationOld.getCurrentInstance().getPort() );
                 ((EditText)mView.findViewById( R.id.editextePortDistCC )).setText( String.valueOf(localeConfiguration.getSendPort()) );
-                //((EditText)mView.findViewById( R.id.editTextAddrCibleCC )).setText( ConfigurationOld.getCurrentInstance().getAddress() );
                 ((EditText)mView.findViewById( R.id.editTextAddrCibleCC )).setText( String.valueOf(localeConfiguration.getTargetAddress()) );
-                //((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( ConfigurationOld.getCurrentInstance().getHostname() );
-                ((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( localeConfiguration.getHostname().toString() );
+                ((EditText)mView.findViewById( R.id.editTextAddrIPCC )).setText( (String.valueOf(localeConfiguration.getHostname().getHostAddress())) );
 
                 (( EditText ) mView.findViewById( R.id.editTextAddrIPCC )).addTextChangedListener( new TextWatcher() {
                     @Override

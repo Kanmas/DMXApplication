@@ -47,7 +47,7 @@ public class ColorWrapper extends BaseModel {
             return;
 
         this.red = red;
-        NotifyPropertyChanged("red");
+        NotifyPropertyChanged(RED);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ColorWrapper extends BaseModel {
         if (blue == this.blue)
             return;
         this.blue = blue;
-        NotifyPropertyChanged("blue");
+        NotifyPropertyChanged(BLUE);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ColorWrapper extends BaseModel {
         if (green == this.green) return;
 
         this.green = green;
-        NotifyPropertyChanged("green");
+        NotifyPropertyChanged(GREEN);
     }
 
     /**

@@ -19,18 +19,27 @@ import java.io.IOException;
 
 public class ParametreGlobaux extends AppCompatActivity {
 
-    public static ParametreGlobaux currentInstance;
-    private static void setCurrentInstance (ParametreGlobaux parametreGlobaux) {
-        ParametreGlobaux.currentInstance = parametreGlobaux;
-    }
-    public static ParametreGlobaux getCurrentInstance () {
-        return currentInstance;
-    }
+    /**
+     * Instance pour le singleton
+     */
+    private static ParametreGlobaux currentInstance;
 
+    /**
+     * Configuration locale
+     */
     private Configuration localeConfiguration = new Configuration();
 
+    /**
+     * Champs texte pour l'adresse IP
+     */
     private EditText hostnameEditText;
+    /**
+     * Champs texte pour le port d'envoi
+     */
     private EditText sendPortEditText;
+    /**
+     * Champs texte pour l'adresse de la cible
+     */
     private EditText targetAddressEditText;
 
     @Override
@@ -39,54 +48,36 @@ public class ParametreGlobaux extends AppCompatActivity {
         setContentView(R.layout.activity_parametre_globaux);
         setCurrentInstance(this);
 
+        // initialisation des champs textes
         hostnameEditText = findViewById(R.id.editTextAddrIP);
         targetAddressEditText = findViewById(R.id.editTextAddrCible);
         sendPortEditText = findViewById(R.id.editTextPort);
 
-        /*
-        ConfigurationOld.getCurrentInstance().setOnPropertyChanged(new ConfigurationOld.PropertyChangedListener() {
-            @Override
-            public void OnPropertyChanged(String propertyName) {
-                switch (propertyName) {
-                    case "Type":
-                        break;
-                    case "Address":
-                        break;
-                    case "Port":
-                        break;
-                    case "Hostname":
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-        */
+        // initialisation des callbacks
         localeConfiguration.setOnPropertyChanged(new BaseModel.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
                 switch (propertyName) {
                     case Configuration.HOSTNAME:
-                        //hostnameEditText.setText(localeConfiguration.getHostname().toString());
                         break;
                     case Configuration.RECEIVE_PORT:
                         break;
                     case Configuration.SEND_PORT:
-                        //sendPortEditText.setText(String.valueOf(localeConfiguration.getSendPort()));
                         break;
                     case Configuration.TARGET_ADDRESS:
-                        //targetAddressEditText.setText(String.valueOf(localeConfiguration.getTargetAddress()));
                         break;
                 }
             }
         });
 
+        // appliquation de la configuration globale sur cette configuration
         localeConfiguration.ApplyConfiguration(Configuration.getInstance());
-        hostnameEditText.setText(localeConfiguration.getHostname().toString());
+        // initialisation des valeurs des champs textes
+        hostnameEditText.setText(String.valueOf(localeConfiguration.getHostname().getHostAddress()));
         sendPortEditText.setText(String.valueOf(localeConfiguration.getSendPort()));
         targetAddressEditText.setText(String.valueOf(localeConfiguration.getTargetAddress()));
 
-
+        // initalisation du gestionnaire d'événement du champs texte
         hostnameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -95,7 +86,6 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //ConfigurationOld.getCurrentInstance().setHostname(charSequence.toString());
                 localeConfiguration.setHostname(charSequence.toString());
             }
 
@@ -113,7 +103,6 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //ConfigurationOld.getCurrentInstance().setAddress(charSequence.toString());
                 localeConfiguration.setTargetAddress(charSequence.toString());
             }
 
@@ -131,7 +120,6 @@ public class ParametreGlobaux extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //ConfigurationOld.getCurrentInstance().setPort(charSequence.toString());
                 localeConfiguration.setSendPort(charSequence.toString());
             }
 
@@ -141,23 +129,31 @@ public class ParametreGlobaux extends AppCompatActivity {
             }
         });
 
-
+        // initialisation du gestionnaire d'événement du bouton
         (findViewById( R.id.btnOKParaGlobo )).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                try {
-                    ConfigurationOld.getCurrentInstance().Sauvegarder();
-                } catch (IOException e) {
-                    Toast.makeText( getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
-                    e.printStackTrace();
-                }*/
-
                 Configuration.getInstance().ApplyConfiguration(localeConfiguration);
                 Configuration.getInstance().Write();
                 Toast.makeText(ParametreGlobaux.this, Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
             }
         } );
+    }
+
+    /**
+     * Renseigne la classe du singleton
+     * @param parametreGlobaux
+     */
+    private static void setCurrentInstance (ParametreGlobaux parametreGlobaux) {
+        ParametreGlobaux.currentInstance = parametreGlobaux;
+    }
+
+    /**
+     * Renvoie le singleton
+     * @return currentInstance
+     */
+    public static ParametreGlobaux getCurrentInstance () {
+        return currentInstance;
     }
 
 

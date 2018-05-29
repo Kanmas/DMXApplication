@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 public class Configuration extends BaseModel{
 
     /**
-     * Chaîone de caractères contenant le nom du champs gérant le nom d'hôte distant.
+     * Chaîne de caractères contenant le nom du champs gérant le nom d'hôte distant.
      * Sert lors de le réception des événements de changements d'états du champs en question.
      */
     public static final String HOSTNAME = "hostname";
@@ -73,8 +73,8 @@ public class Configuration extends BaseModel{
             e.printStackTrace();
         }
 
-        sendPort = 0;
-        targetAddress = 0;
+        sendPort = 5000;
+        targetAddress = 1;
         receivePort = 0;
 
     }
