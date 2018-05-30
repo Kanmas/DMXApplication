@@ -7,11 +7,23 @@ import android.view.View;
 
 public class Bienvenue extends AppCompatActivity {
 
+    public static Bienvenue getCurrentInstance() {
+        return currentInstance;
+    }
+
+    public static void setCurrentInstance(Bienvenue currentInstance) {
+        Bienvenue.currentInstance = currentInstance;
+    }
+
+    private static Bienvenue currentInstance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_bienvenue );
+        setCurrentInstance( this );
     }
+
 
     public void Page_Changer_Couleur(View view) {
         startActivity( new Intent( this, Changer_Couleur.class ) );

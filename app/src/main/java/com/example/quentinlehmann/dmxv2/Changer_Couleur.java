@@ -175,7 +175,7 @@ public class Changer_Couleur extends AppCompatActivity {
                 try {
                     //NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
                     NetworkManager.getInstance().SendFragment( json, Configuration.getInstance().getHostname(), Configuration.getInstance().getSendPort() );
-                    Toast.makeText(Changer_Couleur.this, "Sent: " + json, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Changer_Couleur.this, "Sent", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(Changer_Couleur.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -209,12 +209,12 @@ public class Changer_Couleur extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(Changer_Couleur.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
-                        Configuration.getInstance().ApplyConfiguration(localeConfiguration);
+                        Configuration.getInstance().ApplyConfiguration(localeConfiguration);/*
                         try {
                             ConfigurationOld.getCurrentInstance().SauvegarderCC();
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }
+                        }*/
                     }
                 });
 
@@ -293,7 +293,7 @@ public class Changer_Couleur extends AppCompatActivity {
 
 
     /**
-     * Reseigne le singleton
+     * Renseigne le singleton
      * @param changer_couleur
      */
     private static void setCurrentInstance (Changer_Couleur changer_couleur) {

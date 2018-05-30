@@ -1,5 +1,6 @@
 package com.example.quentinlehmann.dmxv2;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GererNewSBColor extends AppCompatActivity {
@@ -26,6 +28,8 @@ public class GererNewSBColor extends AppCompatActivity {
     private ColorPacket packet = new ColorPacket();
 
     private ListView mListView;
+    public ArrayList<String> arrayList;
+    ArrayAdapter<String> adapter;
     private String[] prenoms = new String[]{
             "Liste de Couleur de la SB",
     };
@@ -43,9 +47,12 @@ public class GererNewSBColor extends AppCompatActivity {
         //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
         //Contenant une TextView avec comme identifiant "@android:id/text1"
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(GererNewSBColor.this,
+        /*final ArrayAdapter<String> adapter = new ArrayAdapter<String>(GererNewSBColor.this,
                 android.R.layout.simple_list_item_1, prenoms);
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(adapter);*/
+        arrayList = new ArrayList<>( Arrays.asList( prenoms ) );
+        adapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, arrayList );
+        mListView.setAdapter( adapter );
 
         FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab3 );
         fab.setOnClickListener( new View.OnClickListener() {

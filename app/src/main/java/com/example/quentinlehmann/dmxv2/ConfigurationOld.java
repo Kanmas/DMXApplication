@@ -109,7 +109,7 @@ public class ConfigurationOld extends BaseModel {
             outputStream.close();
         Toast.makeText(Changer_Couleur.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();}
         catch (Exception e){
-            Toast.makeText( Changer_Couleur.getCurrentInstance(), e.toString(), Toast.LENGTH_LONG ).show();
+            Toast.makeText( Bienvenue.getCurrentInstance(), e.toString(), Toast.LENGTH_LONG ).show();
         }
     }
 

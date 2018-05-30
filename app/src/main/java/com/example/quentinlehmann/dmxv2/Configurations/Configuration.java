@@ -68,7 +68,7 @@ public class Configuration extends BaseModel{
      */
     public Configuration () {
         try {
-            hostname = InetAddress.getByName("127.0.0.1");
+            hostname = InetAddress.getByName("172.20.10.11");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

@@ -13,31 +13,26 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
+
 import java.io.IOException;
 import java.net.InetAddress;
 
 public class ParametreNewSb extends AppCompatActivity {
 
     private static ParametreNewSb currentInstance;
-    private static void setCurrentInstance (ParametreNewSb parametreNewSb) {
-        ParametreNewSb.currentInstance = parametreNewSb;
-    }
-    public static ParametreNewSb getCurrentInstance () {
-        return currentInstance;
-    }
-
-    private ColorPacket packet = new ColorPacket();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_parametre_new_sb );
-        currentInstance = this;
-            Button btn = findViewById( R.id.btnOKNewSb );
-        ((EditText )findViewById( R.id.editTextPortNewSb )).setText( ConfigurationOld.getCurrentInstance().getPort() );
-        ((EditText)findViewById( R.id.editTextaddrCibleNewSb )).setText( ConfigurationOld.getCurrentInstance().getAddress() );
-        ((EditText)findViewById( R.id.editTextAddrIPNewsb )).setText( ConfigurationOld.getCurrentInstance().getHostname() );
+        setCurrentInstance( this );
+        final Configuration localeConfiguration = new Configuration(Configuration.getInstance());
+
+
+        ((EditText )findViewById( R.id.editTextPortNewSb )).setText( String.valueOf(localeConfiguration.getSendPort()) );
+        ((EditText)findViewById( R.id.editTextaddrCibleNewSb )).setText( String.valueOf(localeConfiguration.getTargetAddress()) );
+        ((EditText)findViewById( R.id.editTextAddrIPNewsb )).setText( (String.valueOf(localeConfiguration.getHostname().getHostAddress())) );
 
         (( EditText )findViewById( R.id.editTextAddrIPNewsb )).addTextChangedListener( new TextWatcher() {
             @Override
@@ -47,7 +42,7 @@ public class ParametreNewSb extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ConfigurationOld.getCurrentInstance().setHostname(charSequence.toString());
+                localeConfiguration.setHostname(charSequence.toString());
             }
 
             @Override
@@ -55,7 +50,6 @@ public class ParametreNewSb extends AppCompatActivity {
 
             }
         } );
-
         ((EditText)findViewById(R.id.editTextaddrCibleNewSb)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -64,7 +58,7 @@ public class ParametreNewSb extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ConfigurationOld.getCurrentInstance().setAddress(charSequence.toString());
+                localeConfiguration.setTargetAddress(charSequence.toString());
             }
 
             @Override
@@ -72,7 +66,6 @@ public class ParametreNewSb extends AppCompatActivity {
 
             }
         });
-
         ((EditText)findViewById(R.id.editTextPortNewSb)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,7 +74,7 @@ public class ParametreNewSb extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ConfigurationOld.getCurrentInstance().setPort(charSequence.toString());
+                localeConfiguration.setSendPort(charSequence.toString());
             }
 
             @Override
@@ -92,49 +85,56 @@ public class ParametreNewSb extends AppCompatActivity {
 
 
 
-        btn.setOnClickListener( new View.OnClickListener() {
+        findViewById( R.id.btnOKNewSb ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
+                Configuration.getInstance().ApplyConfiguration( localeConfiguration );
+                Toast.makeText( ParametreNewSb.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
+                GererNewSBColor( view );
+/*
+                Toast.makeText(ParametreNewSb.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
+                Configuration.getInstance().ApplyConfiguration(localeConfiguration);
                 try {
-                    ConfigurationOld.getCurrentInstance().SauvegarderSB();
+                    ConfigurationOld.getCurrentInstance().SauvegarderCC();
+                } catch (IOException e) {
+                    Toast.makeText(ParametreNewSb.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                try {
+                    //ConfigurationOld.getCurrentInstance().SauvegarderSB();
 
                     GererNewSBColor(view);
                 } catch (IOException e) {
 
-                        Toast.makeText( ParametreNewSb.getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    Toast.makeText( ParametreNewSb.getCurrentInstance(), "Erreur 1", Toast.LENGTH_LONG ).show();
 
                 }catch (Exception e) {
-                    Toast.makeText( ParametreNewSb.getCurrentInstance(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    Toast.makeText( ParametreNewSb.getCurrentInstance(), "Erreur 2", Toast.LENGTH_LONG ).show();
                 }
-            }
-
-        });
-        ConfigurationOld.getCurrentInstance().setOnPropertyChanged(new ConfigurationOld.PropertyChangedListener() {
-            @Override
-            public void OnPropertyChanged(String propertyName) {
-                switch (propertyName) {
-                    case "Type":
-                        break;
-                    case "Address":
-
-                        try {
-                            getCurrentInstance().packet.couleur.setTargetAddress( Integer.parseInt( ConfigurationOld.getCurrentInstance().getAddress() ) );
-                        } finally {
-                            getCurrentInstance().packet.couleur.setTargetAddress( 0 );
-                        }
-                        break;
-                    case "Port":
-                        break;
-                    case "Hostname":
-                        break;
-                    default:
-                        break;
-                }
+                */
             }
         });
-        }
+    }
     public void GererNewSBColor (View view){
         startActivity( new Intent( this, GererNewSBColor.class ) );
+    }
+
+
+    /**
+     * Setter du singleton
+     * @param parametreNewSb
+     */
+    private static void setCurrentInstance (ParametreNewSb parametreNewSb) {
+        ParametreNewSb.currentInstance = parametreNewSb;
+    }
+
+    /**
+     * Getter du singleton
+     * @return currentInstance
+     */
+    public static ParametreNewSb getCurrentInstance () {
+        return currentInstance;
     }
 }
