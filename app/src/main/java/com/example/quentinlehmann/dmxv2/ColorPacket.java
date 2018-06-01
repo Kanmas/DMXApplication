@@ -20,7 +20,7 @@ public class ColorPacket {
     public class ColorPacketWrapper
     {
 
-        public String target = "PROJO";
+        public String target = "BARRELED";
         public int targetAddress;
         public int red;
         public int blue;

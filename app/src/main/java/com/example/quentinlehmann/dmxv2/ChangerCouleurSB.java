@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -39,7 +41,7 @@ public class ChangerCouleurSB extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_changer_couleur_sb );
         currentInstance = this;
@@ -161,11 +163,17 @@ public class ChangerCouleurSB extends AppCompatActivity {
             }
         } );
 
+
         // Intialisation du gestionnaire du bouton envoyer
         ((Button )findViewById( R.id.btnenvoyerCouleurSb )).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //GererNewSBColor.getCurrentInstance().arrayList.add(  )
+
+                //final ArrayAdapter<String[]> adapter = new ArrayAdapter<String[]>(GererNewSBColor.getCurrentInstance(),
+                //        android.R.layout.simple_list_item_1, GererNewSBColor.getCurrentInstance().arrayList);
+                //String[] chaine = new String[]{ "RED :"+String.valueOf( wrapper.getRed() )+"BLUE :"+ String.valueOf( wrapper.getBlue() )+ "GREEN :"+String.valueOf( wrapper.getGreen() )};
+                //GererNewSBColor.getCurrentInstance().arrayList.add(chaine);
                 GererNewSBColor(view);
             }
         } );

@@ -5,37 +5,43 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class GererSB extends AppCompatActivity {
 
-    private ListView mListView;
-    private String[] prenoms = new String[]{
-            "Liste differentes SB", "Benoit", "Cyril", "David", "Eloise", "Florent",
-            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
-            "Yann", "Bonjour"
-    };
+    private RecyclerView rcStoryboardList;
+    private ArrayList<Storyboard> arrayList = new ArrayList<>(  );
+    private StoryboardRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_gerer_sb );
 
+        rcStoryboardList = findViewById( R.id.rcStoryboardList );
 
+        arrayList.addAll( Storyboard.fake(10) );
 
-        mListView = (ListView) findViewById(R.id.ListViewGererSB);
+        recyclerView.setLayoutManager( new LinearLayoutManager( this ) );
+        adapter = new StoryboardRecyclerViewAdapter( this, arrayList );
 
-        //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
-        //Contenant une TextView avec comme identifiant "@android:id/text1"
+        adapter.setmClickListener( new StoryboardRecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText( GererSB.this, adapter.getItem( position ).getName(), Toast.LENGTH_SHORT ).show();
+            }
+        } );
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(GererSB.this,
-                android.R.layout.simple_list_item_1, prenoms);
-        mListView.setAdapter(adapter);
+        recyclerView.setAdapter( adapter );
 
         FloatingActionButton fab = findViewById( R.id.fab );
         fab.setOnClickListener( new View.OnClickListener() {

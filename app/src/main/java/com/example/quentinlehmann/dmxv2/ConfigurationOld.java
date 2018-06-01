@@ -12,10 +12,6 @@ import java.net.Inet4Address;
 
 public class ConfigurationOld extends BaseModel {
 
-    public String[] getTargetType () {
-        return new String[] {"Projecteur", "Lyre"};
-    }
-
     private String type;
     private String address;
     private String hostname;

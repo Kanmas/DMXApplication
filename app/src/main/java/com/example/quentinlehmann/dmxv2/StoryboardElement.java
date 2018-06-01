@@ -1,5 +1,9 @@
 package com.example.quentinlehmann.dmxv2;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by quentin.lehmann on 25/05/2018.
  */
@@ -10,10 +14,18 @@ public class StoryboardElement {
     private int blue;
     private int green;
     private double time;
-    private int targetAddress;
-    private String target = "PROJO";
+    private int targetAddress = 1;
+    private String target = "BARRELED";
+
     public String getTarget() {
         return target;
+    }
+
+    public StoryboardElement (int red, int blue, int green, double time) {
+        this.red = red;
+        this.blue = blue;
+        this.green = green;
+        this.time = time;
     }
 
     public void setTarget(String target) {
@@ -58,5 +70,16 @@ public class StoryboardElement {
 
     public void setTargetAddress(int targetAddress) {
         this.targetAddress = targetAddress;
+    }
+
+    public static List<StoryboardElement> fake (int max) {
+        ArrayList<StoryboardElement> fake = new ArrayList<>(  );
+
+        Random random = new Random(  );
+        for (int i = 0; i < max; i++) {
+            fake.add( new StoryboardElement(random.nextInt(255),random.nextInt(255),random.nextInt(255), Math.round(random.nextDouble() * 100) ) );
+        }
+
+        return fake;
     }
 }

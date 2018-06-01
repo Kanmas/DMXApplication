@@ -20,7 +20,7 @@ public class PacketConstructor {
         packet.couleur.blue = colorWrapper.getBlue();
         packet.couleur.green = colorWrapper.getGreen();
         packet.couleur.targetAddress = Configuration.getInstance().getTargetAddress();
-        packet.couleur.target = "PROJO";
+        packet.couleur.target = "BARRELED";
         return Json.getInstance().Serialize(packet);
     }
 }

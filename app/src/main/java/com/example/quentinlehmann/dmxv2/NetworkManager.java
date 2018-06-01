@@ -20,7 +20,7 @@ public class NetworkManager {
     /**
      * Représente la taille maximum d'un paquet
      */
-    public int mtu = 20;
+    public int mtu = 380;
 
     /**
      * Instance pour le singleton
