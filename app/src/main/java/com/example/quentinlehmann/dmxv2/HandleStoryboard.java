@@ -29,7 +29,8 @@ public class HandleStoryboard extends AppCompatActivity {
 
         rcStoryboardList = findViewById( R.id.rcStoryboardList );
 
-        arrayList.addAll( Storyboard.fake(10) );
+
+        arrayList.addAll(  Storyboard.findAll(this) );
 
         rcStoryboardList.setLayoutManager( new LinearLayoutManager( this ) );
         adapter = new StoryboardRecyclerViewAdapter( this, arrayList );
@@ -62,7 +63,8 @@ public class HandleStoryboard extends AppCompatActivity {
 
     public void GererCouleurSB (View view, Storyboard storyboard){
         Intent intent = new Intent(this, HandleStoryboardColor.class);
-        intent.putExtra("Storyboard", Json.getInstance().Serialize(storyboard));
+        //intent.putExtra("Storyboard", Json.getInstance().Serialize(storyboard));
+        Storyboard.setCurrentInstance(storyboard);
         startActivity( intent );
     }
 

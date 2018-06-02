@@ -22,32 +22,39 @@ import com.example.quentinlehmann.dmxv2.JSON.Json;
 public class HandleStoryboardColor extends AppCompatActivity {
 
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
-    private Storyboard storyboard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_handle_storyboard_color);
+
+        // debug
         Toast.makeText(this, "HandleStoryboardColor.java", Toast.LENGTH_LONG).show();
 
-        String serializedStoryboard = (String)getIntent().getSerializableExtra("Storyboard");
-        storyboard = (Storyboard) Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
+        Storyboard.getCurrentInstance().write(this);
 
-        setTitle(storyboard.getName());
-        Toast.makeText(HandleStoryboardColor.this, storyboard.toString(), Toast.LENGTH_LONG).show();
+        // actualisation du titre
+        setTitle(Storyboard.getCurrentInstance().getName());
+        Toast.makeText(HandleStoryboardColor.this, Storyboard.getCurrentInstance().toString(), Toast.LENGTH_LONG).show();
 
+        // initialisation du recycler
         RecyclerView rc = findViewById(R.id.rcGererCouleurSB);
         rc.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter(this, storyboard.getStoryboardElements());
+
+        // initialisation de l'adapteur
+        myRecyclerViewAdapter = new MyRecyclerViewAdapter(this, Storyboard.getCurrentInstance().getStoryboardElements());
         myRecyclerViewAdapter.setClickListener(new MyRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                ChangerCouleurSB(view, myRecyclerViewAdapter.getItem(position));
+                HandleStoryboardElement(view, myRecyclerViewAdapter.getItem(position));
                 Toast.makeText(HandleStoryboardColor.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
+        // ajout de l'adapteur dans le recycler
         rc.setAdapter(myRecyclerViewAdapter);
 
+        // intialisation du bouton flottant
         FloatingActionButton fab = findViewById( R.id.fab2 );
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -58,7 +65,12 @@ public class HandleStoryboardColor extends AppCompatActivity {
         } );
     }
 
-    public void ChangerCouleurSB (View view, StoryboardElement element) {
+    /**
+     * Change la vue pour aller sur l'activité de gestion de la couleur
+     * @param view
+     * @param element
+     */
+    public void HandleStoryboardElement (View view, StoryboardElement element) {
         Intent intent = new Intent(this, ChangeStoryboardElement.class);
         intent.putExtra("element", Json.getInstance().Serialize(element));
         startActivity(intent);

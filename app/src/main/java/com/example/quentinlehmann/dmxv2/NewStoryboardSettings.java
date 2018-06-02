@@ -110,9 +110,13 @@ public class NewStoryboardSettings extends AppCompatActivity {
         findViewById( R.id.btnOKNewSb ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Configuration.getInstance().ApplyConfiguration( localeConfiguration );
-                Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
-                HandleStoryboardColor(view);
+                if (newStoryBoard.checkName (NewStoryboardSettings.this)) {
+                    Configuration.getInstance().ApplyConfiguration( localeConfiguration );
+                    Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
+                    HandleStoryboardColor(view);
+                } else {
+                    Toast.makeText(NewStoryboardSettings.this, "Name already taken", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -120,8 +124,9 @@ public class NewStoryboardSettings extends AppCompatActivity {
 
     public void HandleStoryboardColor (View view) {
         Intent intent = new Intent(this, HandleStoryboardColor.class);
-        String json = Json.getInstance().Serialize(newStoryBoard);
-        intent.putExtra("Storyboard", json);
+        //String json = Json.getInstance().Serialize(newStoryBoard);
+        //intent.putExtra("Storyboard", json);
+        Storyboard.setCurrentInstance(newStoryBoard);
         startActivity(intent);
     }
 }
