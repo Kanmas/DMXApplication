@@ -11,6 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.quentinlehmann.dmxv2.Common.ColorWrapper;
+import com.example.quentinlehmann.dmxv2.Common.StoryboardElement;
+import com.example.quentinlehmann.dmxv2.JSON.Json;
+
 public class ChangeStoryboardElement extends AppCompatActivity {
 
 

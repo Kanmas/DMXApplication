@@ -1,15 +1,16 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Networking;
 
 import android.os.NetworkOnMainThreadException;
+
+import com.example.quentinlehmann.dmxv2.JSON.Json;
+
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.nio.channels.IllegalBlockingModeException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**

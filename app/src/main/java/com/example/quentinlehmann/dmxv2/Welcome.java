@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
+import com.example.quentinlehmann.dmxv2.JSON.Json;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,7 +54,7 @@ public class Welcome extends AppCompatActivity {
                 // convertie le StringBuilder en String
                 String json = text.toString();
                 // Deserialize la configuration
-                Configuration savedConfiguration = (Configuration)Json.getInstance().Deserialize(json, Configuration.class);
+                Configuration savedConfiguration = (Configuration) Json.getInstance().Deserialize(json, Configuration.class);
 
                 // Applique la configuration à la configuration globale
                 Configuration.getInstance().ApplyConfiguration(savedConfiguration);

@@ -1,4 +1,4 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Networking;
 
 /**
  * Created by quentin.lehmann on 25/05/2018.

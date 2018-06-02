@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.quentinlehmann.dmxv2.BaseModel;
 import com.example.quentinlehmann.dmxv2.Welcome;
-import com.example.quentinlehmann.dmxv2.Json;
+import com.example.quentinlehmann.dmxv2.JSON.Json;
 
 import java.io.OutputStream;
 import java.net.InetAddress;

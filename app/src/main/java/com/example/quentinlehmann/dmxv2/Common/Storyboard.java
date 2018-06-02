@@ -1,4 +1,4 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Common;
 
 import android.content.Context;
 

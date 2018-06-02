@@ -1,6 +1,8 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Common;
 
 import android.graphics.Color;
+
+import com.example.quentinlehmann.dmxv2.BaseModel;
 
 public class ColorWrapper extends BaseModel {
 

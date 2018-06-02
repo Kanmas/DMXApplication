@@ -1,4 +1,4 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.JSON;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

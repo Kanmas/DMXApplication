@@ -10,6 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.quentinlehmann.dmxv2.Common.Storyboard;
+import com.example.quentinlehmann.dmxv2.Common.StoryboardElement;
+import com.example.quentinlehmann.dmxv2.JSON.Json;
+
 /**
  * Activité de gestion des couleurs d'une storyboard
  * Il s'agit de la liste de couleur
@@ -26,7 +30,7 @@ public class HandleStoryboardColor extends AppCompatActivity {
         Toast.makeText(this, "HandleStoryboardColor.java", Toast.LENGTH_LONG).show();
 
         String serializedStoryboard = (String)getIntent().getSerializableExtra("Storyboard");
-        Storyboard storyboard = (Storyboard)Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
+        Storyboard storyboard = (Storyboard) Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
 
         Toast.makeText(HandleStoryboardColor.this, storyboard.toString(), Toast.LENGTH_LONG).show();
 

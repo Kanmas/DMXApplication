@@ -1,9 +1,7 @@
 package com.example.quentinlehmann.dmxv2.JSON;
 
-import com.example.quentinlehmann.dmxv2.ColorPacket;
-import com.example.quentinlehmann.dmxv2.ColorWrapper;
+import com.example.quentinlehmann.dmxv2.Common.ColorWrapper;
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
-import com.example.quentinlehmann.dmxv2.Json;
 
 /**
  * Prépare les paquets avant l'envoi au serveur

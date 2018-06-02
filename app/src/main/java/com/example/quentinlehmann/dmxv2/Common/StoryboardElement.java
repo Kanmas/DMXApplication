@@ -1,7 +1,6 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Common;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
