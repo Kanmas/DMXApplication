@@ -7,6 +7,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.Serializable;
 
 public class GererCouleurSB extends AppCompatActivity {
 
@@ -15,7 +18,13 @@ public class GererCouleurSB extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_gerer_couleur_sb );
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab );
+        String serializedStoryboard = (String)getIntent().getSerializableExtra("Storyboard");
+        Storyboard storyboard = (Storyboard)Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
+
+        Toast.makeText(GererCouleurSB.this, storyboard.toString(), Toast.LENGTH_LONG).show();
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab2 );
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {

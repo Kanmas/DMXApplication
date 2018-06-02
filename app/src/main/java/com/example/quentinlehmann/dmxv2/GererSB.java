@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,7 +21,6 @@ public class GererSB extends AppCompatActivity {
     private RecyclerView rcStoryboardList;
     private ArrayList<Storyboard> arrayList = new ArrayList<>(  );
     private StoryboardRecyclerViewAdapter adapter;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +31,25 @@ public class GererSB extends AppCompatActivity {
 
         arrayList.addAll( Storyboard.fake(10) );
 
-        recyclerView.setLayoutManager( new LinearLayoutManager( this ) );
+        rcStoryboardList.setLayoutManager( new LinearLayoutManager( this ) );
         adapter = new StoryboardRecyclerViewAdapter( this, arrayList );
 
-        adapter.setmClickListener( new StoryboardRecyclerViewAdapter.ItemClickListener() {
+        adapter.setClickListener( new StoryboardRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText( GererSB.this, adapter.getItem( position ).getName(), Toast.LENGTH_SHORT ).show();
+                try {
+
+                    Toast.makeText( GererSB.this, "You clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_SHORT ).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                GererCouleurSB(view, adapter.getItem(position));
             }
         } );
 
-        recyclerView.setAdapter( adapter );
+        rcStoryboardList.setAdapter( adapter );
+
+
 
         FloatingActionButton fab = findViewById( R.id.fab );
         fab.setOnClickListener( new View.OnClickListener() {
@@ -52,8 +60,10 @@ public class GererSB extends AppCompatActivity {
         } );
     }
 
-    public void GererCouleurSB (View view){
-        startActivity( new Intent( this, GererCouleurSB.class) );
+    public void GererCouleurSB (View view, Storyboard storyboard){
+        Intent intent = new Intent(this, GererCouleurSB.class);
+        intent.putExtra("Storyboard", Json.getInstance().Serialize(storyboard));
+        startActivity( intent );
     }
 
     public void ParametreNewSb (View view){

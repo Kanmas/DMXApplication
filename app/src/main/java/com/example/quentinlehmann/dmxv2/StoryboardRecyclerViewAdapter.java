@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by quentin.lehmann on 01/06/2018.
- */
-
 public class StoryboardRecyclerViewAdapter extends RecyclerView.Adapter<StoryboardRecyclerViewAdapter.ViewHolder>  {
 
     private List<Storyboard> mData;
@@ -56,6 +52,7 @@ public class StoryboardRecyclerViewAdapter extends RecyclerView.Adapter<Storyboa
             timeTextView = itemView.findViewById( R.id.tvStoryboardTime );
             nameTextView = itemView.findViewById( R.id.tvStoryboardName );
             countTextView = itemView.findViewById( R.id.tvElementCount );
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -68,7 +65,7 @@ public class StoryboardRecyclerViewAdapter extends RecyclerView.Adapter<Storyboa
         void onItemClick (View view, int position);
     }
 
-    public void setmClickListener (ItemClickListener itemClickListener) {
+    public void setClickListener (ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

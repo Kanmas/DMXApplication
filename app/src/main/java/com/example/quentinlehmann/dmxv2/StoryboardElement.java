@@ -72,7 +72,7 @@ public class StoryboardElement {
         this.targetAddress = targetAddress;
     }
 
-    public static List<StoryboardElement> fake (int max) {
+    public static ArrayList<StoryboardElement> fake (int max) {
         ArrayList<StoryboardElement> fake = new ArrayList<>(  );
 
         Random random = new Random(  );

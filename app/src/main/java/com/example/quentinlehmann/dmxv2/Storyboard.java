@@ -1,12 +1,13 @@
 package com.example.quentinlehmann.dmxv2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by quentin.lehmann on 01/06/2018.
  */
 
-public class Storyboard {
+public class Storyboard implements Serializable{
     private ArrayList<StoryboardElement> storyboardElements;
     private String name;
 
@@ -54,9 +55,16 @@ public class Storyboard {
         ArrayList<Storyboard> fake = new ArrayList<>(  );
 
         for (int i = 0; i < max; i++) {
-            fake.add(new Storyboard("Story board " + String.valueOf( i )));
+            Storyboard storyboard = new Storyboard("Story board " + String.valueOf( i ));
+            storyboard.setStoryboardElements(StoryboardElement.fake(10));
+            fake.add(storyboard);
         }
 
         return fake;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
