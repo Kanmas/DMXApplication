@@ -29,13 +29,12 @@ public class ChangerCouleurSB extends AppCompatActivity {
     private static final int BASE_GREEN_BALANCE = 127;
     private static final int BASE_BLUE_BALANCE = 127;
 
-    private static ChangerCouleurSB currentInstance;
-
-
     private LinearLayout redLayout;
     private LinearLayout greenLayout;
     private LinearLayout blueLayout;
     private LinearLayout blendedLayout;
+
+    private EditText timeEditText;
 
     private ColorWrapper wrapper = new ColorWrapper();
 
@@ -44,12 +43,13 @@ public class ChangerCouleurSB extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_changer_couleur_sb );
-        currentInstance = this;
-
+        Toast.makeText(this, "ChangerCouleurSB.java", Toast.LENGTH_LONG).show();
         redLayout = findViewById( R.id.linearLayoutRedSb );
         greenLayout = findViewById( R.id.linearLayoutGreenSb );
         blueLayout = findViewById( R.id.linearLayoutBlueSb );
         blendedLayout = findViewById( R.id.linearLayoutMelangeSb );
+
+        timeEditText = findViewById(R.id.editTextTemps);
 
         wrapper.setOnPropertyChanged( new BaseModel.PropertyChangedListener() {
             @Override
@@ -67,13 +67,25 @@ public class ChangerCouleurSB extends AppCompatActivity {
             }
         } );
 
-        wrapper.setRed( BASE_RED_BALANCE );
-        wrapper.setGreen( BASE_GREEN_BALANCE );
-        wrapper.setBlue( BASE_BLUE_BALANCE );
+        String json = (String)getIntent().getSerializableExtra("element");
+        StoryboardElement element;
+        if (json != null && !json.isEmpty()) {
+            element = (StoryboardElement) Json.getInstance().Deserialize(json, StoryboardElement.class);
+            wrapper.setRed(element.getRed());
+            wrapper.setGreen(element.getGreen());
+            wrapper.setBlue(element.getBlue());
+            timeEditText.setText(String.valueOf(element.getTime()));
+        } else {
+            wrapper.setRed( BASE_RED_BALANCE );
+            wrapper.setGreen( BASE_GREEN_BALANCE );
+            wrapper.setBlue( BASE_BLUE_BALANCE );
+        }
+
+
 
 
         // Initialisation du gestionnaire d'événement du champs texte du temps
-        ((EditText)findViewById( R.id.editTextTemps )).addTextChangedListener( new TextWatcher() {
+        timeEditText.addTextChangedListener( new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -81,9 +93,7 @@ public class ChangerCouleurSB extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //getCurrentInstance().sbe.setTime ( Integer.parseInt( charSequence.toString()) );
-                //getCurrentInstance().storyboardElement.setTime( Double.parseDouble( charSequence.toString() ) );
-                //Toast.makeText( ChangerCouleurSB.getCurrentInstance(), charSequence.toString(),Toast.LENGTH_LONG ).show();
+
             }
 
             @Override
@@ -99,10 +109,6 @@ public class ChangerCouleurSB extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
                 wrapper.setRed( i );
-                //((LinearLayout)findViewById( R.id.linearLayoutRedSb)).setBackgroundColor( Color.rgb( seekBar.getProgress(), 0, 0 ) );
-                //ChangerLayoutMelange();
-                //getCurrentInstance().sbe.setRed( seekBar.getProgress() );
-                //getCurrentInstance().storyboardElement.setRed( seekBar.getProgress() );
             }
 
             @Override
@@ -120,12 +126,7 @@ public class ChangerCouleurSB extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
                 wrapper.setBlue( i );
-                ((LinearLayout)findViewById( R.id.linearLayoutBlueSb)).setBackgroundColor( Color.rgb(0, 0, seekBar.getProgress() ) );
-                //ChangerLayoutMelange();
-                //getCurrentInstance().sbe.setBlue( seekBar.getProgress() );
-                //getCurrentInstance().storyboardElement.setBlue( seekBar.getProgress() );
             }
 
             @Override
@@ -145,11 +146,6 @@ public class ChangerCouleurSB extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 wrapper.setGreen( i );
-
-                //((LinearLayout)findViewById( R.id.linearLayoutGreenSb)).setBackgroundColor( Color.rgb( 0, seekBar.getProgress(), 0 ) );
-                //ChangerLayoutMelange();
-                //getCurrentInstance().sbe.setGreen( seekBar.getProgress() );
-                //getCurrentInstance().storyboardElement.setGreen( seekBar.getProgress() );
             }
 
             @Override
@@ -165,15 +161,9 @@ public class ChangerCouleurSB extends AppCompatActivity {
 
 
         // Intialisation du gestionnaire du bouton envoyer
-        ((Button )findViewById( R.id.btnenvoyerCouleurSb )).setOnClickListener( new View.OnClickListener() {
+        (findViewById( R.id.btnenvoyerCouleurSb )).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //GererNewSBColor.getCurrentInstance().arrayList.add(  )
-
-                //final ArrayAdapter<String[]> adapter = new ArrayAdapter<String[]>(GererNewSBColor.getCurrentInstance(),
-                //        android.R.layout.simple_list_item_1, GererNewSBColor.getCurrentInstance().arrayList);
-                //String[] chaine = new String[]{ "RED :"+String.valueOf( wrapper.getRed() )+"BLUE :"+ String.valueOf( wrapper.getBlue() )+ "GREEN :"+String.valueOf( wrapper.getGreen() )};
-                //GererNewSBColor.getCurrentInstance().arrayList.add(chaine);
                 GererNewSBColor(view);
             }
         } );
@@ -181,36 +171,8 @@ public class ChangerCouleurSB extends AppCompatActivity {
 
     }
 
-    // Sert à changer le carré représentant les mélanges de couleurs
-    public void ChangerLayoutMelange (){
-        ((LinearLayout)findViewById( R.id.linearLayoutMelangeSb )).setBackgroundColor( Color.rgb( (( SeekBar ) findViewById( R.id.seekBarRedSb )).getProgress(),
-                (( SeekBar ) findViewById( R.id.seekBarGreenSb )).getProgress(),
-                (( SeekBar ) findViewById( R.id.seekBarBlueSb )).getProgress()));
-    }
-
-
-
-
-
-
     // Sert à faire la liaison entre les deux fenêtre
     public void GererNewSBColor (View view){
         startActivity( new Intent( this, GererNewSBColor.class ) );
-    }
-
-    /**
-     * Singleton
-     * @param changer_couleurSB
-     */
-    private static void setCurrentInstance (ChangerCouleurSB changer_couleurSB) {
-        ChangerCouleurSB.currentInstance = changer_couleurSB;
-    }
-
-    /**
-     * Singleton
-     * @return currentInstace
-     */
-    public static ChangerCouleurSB getCurrentInstance () {
-        return currentInstance;
     }
 }

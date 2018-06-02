@@ -26,6 +26,7 @@ public class GererSB extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_gerer_sb );
+        Toast.makeText(this, "GererSB.java", Toast.LENGTH_LONG).show();
 
         rcStoryboardList = findViewById( R.id.rcStoryboardList );
 

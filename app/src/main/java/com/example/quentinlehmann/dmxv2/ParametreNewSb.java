@@ -20,13 +20,12 @@ import java.net.InetAddress;
 
 public class ParametreNewSb extends AppCompatActivity {
 
-    private static ParametreNewSb currentInstance;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_parametre_new_sb );
-        setCurrentInstance( this );
+        Toast.makeText(this, "ParametreNewSb.java", Toast.LENGTH_LONG).show();
+
         final Configuration localeConfiguration = new Configuration(Configuration.getInstance());
 
 
@@ -119,22 +118,5 @@ public class ParametreNewSb extends AppCompatActivity {
     }
     public void GererNewSBColor (View view){
         startActivity( new Intent( this, GererNewSBColor.class ) );
-    }
-
-
-    /**
-     * Setter du singleton
-     * @param parametreNewSb
-     */
-    private static void setCurrentInstance (ParametreNewSb parametreNewSb) {
-        ParametreNewSb.currentInstance = parametreNewSb;
-    }
-
-    /**
-     * Getter du singleton
-     * @return currentInstance
-     */
-    public static ParametreNewSb getCurrentInstance () {
-        return currentInstance;
     }
 }

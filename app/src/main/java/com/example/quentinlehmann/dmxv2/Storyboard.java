@@ -1,5 +1,7 @@
 package com.example.quentinlehmann.dmxv2;
 
+import android.content.Context;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -61,6 +63,14 @@ public class Storyboard implements Serializable{
         }
 
         return fake;
+    }
+
+    /**
+     * Sauvegarde la storyboard
+     * @param context
+     */
+    public void Save (Context context) {
+
     }
 
     @Override

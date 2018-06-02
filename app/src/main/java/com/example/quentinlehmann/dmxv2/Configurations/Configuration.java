@@ -253,15 +253,6 @@ public class Configuration extends BaseModel{
     }
 
     /**
-     * Cherche la configuration dans les fichiers de l'application,
-     * Si il n'existe pas de configuration, le fichier sera créé avec
-     * la configuration par default.
-     */
-    public void Initialize () {
-        // TODO: implements
-    }
-
-    /**
      * Ecrit la configuration actuelle dans les fichiers de l'application
      */
     public void Write (Context context) {

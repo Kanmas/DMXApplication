@@ -18,6 +18,9 @@ import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 
 import java.io.IOException;
 
+/**
+ * Activité de changement des paramètres globaux de l'application
+ */
 public class ParametreGlobaux extends AppCompatActivity {
 
     /**
@@ -42,6 +45,8 @@ public class ParametreGlobaux extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_parametre_globaux);
+
+        Toast.makeText(this, "ParametreGlobaux.java", Toast.LENGTH_LONG).show();
 
         // initialisation des champs textes
         hostnameEditText = findViewById(R.id.editTextAddrIP);

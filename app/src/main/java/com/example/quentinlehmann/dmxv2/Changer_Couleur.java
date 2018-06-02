@@ -31,6 +31,9 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * Activité de changement de couleur simple
+ */
 public class Changer_Couleur extends AppCompatActivity {
 
     /**
@@ -45,11 +48,6 @@ public class Changer_Couleur extends AppCompatActivity {
      * Renseigne le niveau de bleu au démarrage de l'interface
      */
     private static final int BASE_BLUE_BALANCE = 127;
-
-    /**
-     * Sert à accéder à l'instance
-     */
-    private static Changer_Couleur currentInstance;
 
     /**
      * Représentation de la couleur afficher dans l'interface
@@ -73,11 +71,13 @@ public class Changer_Couleur extends AppCompatActivity {
      */
     private LinearLayout blendLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_changer__couleur );
-        setCurrentInstance(this);
+
+        Toast.makeText(this, "Changer_Couleur.java", Toast.LENGTH_LONG).show();
 
         // renseigne les layouts
         redLayout = findViewById(R.id.LayoutRed);
@@ -193,7 +193,11 @@ public class Changer_Couleur extends AppCompatActivity {
     }
 
 
-    //gère le click sur une action de l'ActionBar
+    /**
+     * Gère le clique de l'action bar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -209,12 +213,8 @@ public class Changer_Couleur extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(Changer_Couleur.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
-                        Configuration.getInstance().ApplyConfiguration(localeConfiguration);/*
-                        try {
-                            ConfigurationOld.getCurrentInstance().SauvegarderCC();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }*/
+                        Configuration.getInstance().ApplyConfiguration(localeConfiguration);
+                        Configuration.getInstance().Write(Changer_Couleur.this);
                     }
                 });
 
@@ -289,23 +289,6 @@ public class Changer_Couleur extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    /**
-     * Renseigne le singleton
-     * @param changer_couleur
-     */
-    private static void setCurrentInstance (Changer_Couleur changer_couleur) {
-        Changer_Couleur.currentInstance = changer_couleur;
-    }
-
-    /**
-     * Renvoie le singleton
-     * @return currentInstance
-     */
-    public static Changer_Couleur getCurrentInstance () {
-        return currentInstance;
     }
 }
 

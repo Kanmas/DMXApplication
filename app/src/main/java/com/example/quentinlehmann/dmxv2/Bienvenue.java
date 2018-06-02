@@ -15,6 +15,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
+/**
+ * Activité de démarrage de l'application
+ */
 public class Bienvenue extends AppCompatActivity {
 
     public static final String CONFIGURATION_FILE_PATH = "configuration.json";

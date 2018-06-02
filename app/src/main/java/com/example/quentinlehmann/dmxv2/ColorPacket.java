@@ -2,10 +2,10 @@ package com.example.quentinlehmann.dmxv2;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by quentin.lehmann on 09/05/2018.
- */
 
+/**
+ * Sert lors de la sérialization
+ */
 public class ColorPacket {
     public ColorPacketWrapper couleur = new ColorPacketWrapper();
 

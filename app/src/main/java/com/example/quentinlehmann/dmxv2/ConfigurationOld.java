@@ -103,15 +103,6 @@ public class ConfigurationOld extends BaseModel {
 
     public void SauvegarderSB () throws IOException {
 
-        try{
-            FileOutputStream outputStream = ParametreNewSb.getCurrentInstance().openFileOutput( "ParamètreCouleurSB.json", Context.MODE_PRIVATE );
-            outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
-            if (outputStream!=null)
-                outputStream.close();
-            Toast.makeText(ParametreNewSb.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();}
-        catch (Exception e){
-            Toast.makeText( ParametreNewSb.getCurrentInstance(), e.toString(), Toast.LENGTH_LONG ).show();
-        }
     }
 }
 

@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Activité de gestion de couleur pour les nouvelles storyboards
+ */
 public class GererNewSBColor extends AppCompatActivity {
 
     private static GererNewSBColor currentInstance;
@@ -35,7 +38,7 @@ public class GererNewSBColor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_gerer_new_sbcolor );
-
+        Toast.makeText(this, "GererNewSBColor.java", Toast.LENGTH_LONG).show();
         setCurrentInstance( this );
         recyclerView = findViewById( R.id.rcElementList );
 

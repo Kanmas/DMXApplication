@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 
+/**
+ * Activité de gestion des couleurs d'une storyboard
+ * Il s'agit de la liste de couleur
+ */
 public class GererCouleurSB extends AppCompatActivity {
 
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
@@ -21,6 +25,8 @@ public class GererCouleurSB extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_gerer_couleur_sb );
+
+        Toast.makeText(this, "GererCouleurSB.java", Toast.LENGTH_LONG).show();
 
         String serializedStoryboard = (String)getIntent().getSerializableExtra("Storyboard");
         Storyboard storyboard = (Storyboard)Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
@@ -33,6 +39,7 @@ public class GererCouleurSB extends AppCompatActivity {
         myRecyclerViewAdapter.setClickListener(new MyRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                ChangerCouleurSB(view, myRecyclerViewAdapter.getItem(position));
                 Toast.makeText(GererCouleurSB.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -43,10 +50,15 @@ public class GererCouleurSB extends AppCompatActivity {
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make( view, "Replace with your own action", Snackbar.LENGTH_LONG )
+                Snackbar.make( view, "Replace with your own action 2", Snackbar.LENGTH_LONG )
                         .setAction( "Action", null ).show();
             }
         } );
     }
 
+    public void ChangerCouleurSB (View view, StoryboardElement element) {
+        Intent intent = new Intent(this, ChangerCouleurSB.class);
+        intent.putExtra("element", Json.getInstance().Serialize(element));
+        startActivity(intent);
+    }
 }
