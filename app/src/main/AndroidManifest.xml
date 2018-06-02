@@ -51,26 +51,18 @@
         </activity>
         <activity
             android:name=".NewStoryboardSettings"
-            android:label="Nouvelle StoryBoard"
+            android:label="Nouvelle storyboard"
             android:parentActivityName=".HandleStoryboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HandleStoryboard" />
         </activity>
-        <activity
-            android:name=".GererNewSBColor"
-            android:label="Story Board"
-            android:parentActivityName=".NewStoryboardSettings">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".NewStoryboardSettings" />
-        </activity>
         <activity android:name=".ChangeStoryboardElement"
             android:label="Couleur"
-            android:parentActivityName=".GererNewSBColor">
+            android:parentActivityName=".HandleStoryboardColor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GererNewSBColor" />
+                android:value=".HandleStoryboardColor" />
         </activity>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

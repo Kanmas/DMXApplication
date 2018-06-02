@@ -157,15 +157,10 @@ public class ChangeStoryboardElement extends AppCompatActivity {
         (findViewById( R.id.btnenvoyerCouleurSb )).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GererNewSBColor(view);
+
             }
         } );
 
 
-    }
-
-    // Sert à faire la liaison entre les deux fenêtre
-    public void GererNewSBColor (View view){
-        startActivity( new Intent( this, GererNewSBColor.class ) );
     }
 }

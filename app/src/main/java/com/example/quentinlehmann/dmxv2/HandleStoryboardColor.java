@@ -21,17 +21,17 @@ import com.example.quentinlehmann.dmxv2.JSON.Json;
 public class HandleStoryboardColor extends AppCompatActivity {
 
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
-
+    private Storyboard storyboard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_handle_storyboard_color);
-
         Toast.makeText(this, "HandleStoryboardColor.java", Toast.LENGTH_LONG).show();
 
         String serializedStoryboard = (String)getIntent().getSerializableExtra("Storyboard");
-        Storyboard storyboard = (Storyboard) Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
+        storyboard = (Storyboard) Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
 
+        setTitle(storyboard.getName());
         Toast.makeText(HandleStoryboardColor.this, storyboard.toString(), Toast.LENGTH_LONG).show();
 
         RecyclerView rc = findViewById(R.id.rcGererCouleurSB);
@@ -47,7 +47,7 @@ public class HandleStoryboardColor extends AppCompatActivity {
 
         rc.setAdapter(myRecyclerViewAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab2 );
+        FloatingActionButton fab = findViewById( R.id.fab2 );
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
