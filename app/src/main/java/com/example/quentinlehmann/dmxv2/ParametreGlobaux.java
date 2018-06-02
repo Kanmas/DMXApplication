@@ -1,6 +1,7 @@
 package com.example.quentinlehmann.dmxv2;
 
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,11 +19,6 @@ import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 import java.io.IOException;
 
 public class ParametreGlobaux extends AppCompatActivity {
-
-    /**
-     * Instance pour le singleton
-     */
-    private static ParametreGlobaux currentInstance;
 
     /**
      * Configuration locale
@@ -46,7 +42,6 @@ public class ParametreGlobaux extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_parametre_globaux);
-        setCurrentInstance(this);
 
         // initialisation des champs textes
         hostnameEditText = findViewById(R.id.editTextAddrIP);
@@ -134,27 +129,9 @@ public class ParametreGlobaux extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Configuration.getInstance().ApplyConfiguration(localeConfiguration);
-                Configuration.getInstance().Write();
+                Configuration.getInstance().Write(ParametreGlobaux.this);
                 Toast.makeText(ParametreGlobaux.this, Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
             }
         } );
     }
-
-    /**
-     * Renseigne la classe du singleton
-     * @param parametreGlobaux
-     */
-    private static void setCurrentInstance (ParametreGlobaux parametreGlobaux) {
-        ParametreGlobaux.currentInstance = parametreGlobaux;
-    }
-
-    /**
-     * Renvoie le singleton
-     * @return currentInstance
-     */
-    public static ParametreGlobaux getCurrentInstance () {
-        return currentInstance;
-    }
-
-
 }

@@ -1,7 +1,12 @@
 package com.example.quentinlehmann.dmxv2.Configurations;
 
-import com.example.quentinlehmann.dmxv2.BaseModel;
+import android.content.Context;
 
+import com.example.quentinlehmann.dmxv2.BaseModel;
+import com.example.quentinlehmann.dmxv2.Bienvenue;
+import com.example.quentinlehmann.dmxv2.Json;
+
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -10,6 +15,12 @@ import java.net.UnknownHostException;
  * Cette classe hérite de BaseModel et donc propose les fonctionnalitées de cette dernière.
  */
 public class Configuration extends BaseModel{
+
+    public static final String DEFAULT_HOSTNAME = "127.0.0.1";
+    public static final int DEFAULT_SEND_PORT = 5000;
+    public static final int DEFAULT_TARGET_ADDRESS = 1;
+    public static final String DEFAULT_TARGET_TYPE = "PROJO";
+    public static final int DEFAULT_RECEIVE_PORT = 15000;
 
     /**
      * Chaîne de caractères contenant le nom du champs gérant le nom d'hôte distant.
@@ -231,6 +242,16 @@ public class Configuration extends BaseModel{
         setTargetAddress(configuration.targetAddress);
     }
 
+    public static Configuration getDefaultConfiguration () {
+        Configuration configuration = new Configuration();
+        configuration.setHostname(DEFAULT_HOSTNAME);
+        configuration.setSendPort(DEFAULT_SEND_PORT);
+        configuration.setTargetAddress(DEFAULT_TARGET_ADDRESS);
+        configuration.setReceivePort(DEFAULT_RECEIVE_PORT);
+
+        return configuration;
+    }
+
     /**
      * Cherche la configuration dans les fichiers de l'application,
      * Si il n'existe pas de configuration, le fichier sera créé avec
@@ -243,7 +264,18 @@ public class Configuration extends BaseModel{
     /**
      * Ecrit la configuration actuelle dans les fichiers de l'application
      */
-    public void Write () {
-        // TODO: implements
+    public void Write (Context context) {
+        String filePath = Bienvenue.CONFIGURATION_FILE_PATH;
+        String json = Json.getInstance().Serialize(this);
+
+        OutputStream outputStream;
+
+        try {
+            outputStream = context.openFileOutput(filePath, context.MODE_PRIVATE);
+            outputStream.write(json.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

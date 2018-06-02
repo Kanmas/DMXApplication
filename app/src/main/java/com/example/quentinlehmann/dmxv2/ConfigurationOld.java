@@ -88,25 +88,17 @@ public class ConfigurationOld extends BaseModel {
 
     public void Sauvegarder () throws IOException {
 
-
+/*
         FileOutputStream outputStream = ParametreGlobaux.getCurrentInstance().openFileOutput( "Sauvegarder.json", Context.MODE_PRIVATE );
         outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
         if (outputStream!=null)
             outputStream.close();
-        Toast.makeText(ParametreGlobaux.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();
+        Toast.makeText(ParametreGlobaux.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();*/
     }
 
     public void SauvegarderCC () throws IOException {
 
-        try{
-        FileOutputStream outputStream = Changer_Couleur.getCurrentInstance().openFileOutput( "ParamètreCouleur.json", Context.MODE_PRIVATE );
-        outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
-        if (outputStream!=null)
-            outputStream.close();
-        Toast.makeText(Changer_Couleur.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();}
-        catch (Exception e){
-            Toast.makeText( Bienvenue.getCurrentInstance(), e.toString(), Toast.LENGTH_LONG ).show();
-        }
+
     }
 
     public void SauvegarderSB () throws IOException {
