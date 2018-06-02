@@ -3,20 +3,15 @@ package com.example.quentinlehmann.dmxv2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class GererSB extends AppCompatActivity {
+public class HandleStoryboard extends AppCompatActivity {
 
     private RecyclerView rcStoryboardList;
     private ArrayList<Storyboard> arrayList = new ArrayList<>(  );
@@ -25,8 +20,8 @@ public class GererSB extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_gerer_sb );
-        Toast.makeText(this, "GererSB.java", Toast.LENGTH_LONG).show();
+        setContentView( R.layout.activity_handle_storyboard);
+        Toast.makeText(this, "HandleStoryboard.java", Toast.LENGTH_LONG).show();
 
         rcStoryboardList = findViewById( R.id.rcStoryboardList );
 
@@ -40,7 +35,7 @@ public class GererSB extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 try {
 
-                    Toast.makeText( GererSB.this, "You clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_SHORT ).show();
+                    Toast.makeText( HandleStoryboard.this, "You clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_SHORT ).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -62,13 +57,13 @@ public class GererSB extends AppCompatActivity {
     }
 
     public void GererCouleurSB (View view, Storyboard storyboard){
-        Intent intent = new Intent(this, GererCouleurSB.class);
+        Intent intent = new Intent(this, HandleStoryboardColor.class);
         intent.putExtra("Storyboard", Json.getInstance().Serialize(storyboard));
         startActivity( intent );
     }
 
     public void ParametreNewSb (View view){
-        startActivity( new Intent( this, ParametreNewSb.class) );
+        startActivity( new Intent( this, NewStoryboardSettings.class) );
     }
 
 }

@@ -1,27 +1,19 @@
 package com.example.quentinlehmann.dmxv2;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 import com.example.quentinlehmann.dmxv2.JSON.StoryboardPacket;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Activité de gestion de couleur pour les nouvelles storyboards
@@ -91,7 +83,7 @@ public class GererNewSBColor extends AppCompatActivity {
 
 
     public void ChangerCouleurSB (View view){
-        startActivity( new Intent( this, ChangerCouleurSB.class) );
+        startActivity( new Intent( this, ChangeStoryboardElement.class) );
     }
 
     private static void setCurrentInstance (GererNewSBColor gererNewSBColor) {

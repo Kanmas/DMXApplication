@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Bienvenue">
+        <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,54 +18,54 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Changer_Couleur"
+            android:name=".ChangeColor"
             android:label="Couleur"
-            android:parentActivityName=".Bienvenue">
+            android:parentActivityName=".Welcome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Bienvenue" />
+                android:value=".Welcome" />
         </activity>
         <activity
-            android:name=".GererSB"
-            android:label="Story Board"
-            android:parentActivityName=".Bienvenue">
+            android:name=".HandleStoryboard"
+            android:label="Liste des storyboards"
+            android:parentActivityName=".Welcome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Bienvenue" />
+                android:value=".Welcome" />
         </activity>
         <activity
-            android:name=".ParametreGlobaux"
+            android:name=".GlobalsSettings"
             android:label="Paramètre"
-            android:parentActivityName=".Bienvenue">
+            android:parentActivityName=".Welcome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Bienvenue" />
+                android:value=".Welcome" />
         </activity>
         <activity
-            android:name=".GererCouleurSB"
+            android:name=".HandleStoryboardColor"
             android:label="Story Board"
-            android:parentActivityName=".GererSB">
+            android:parentActivityName=".HandleStoryboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GererSB" />
+                android:value=".HandleStoryboard" />
         </activity>
         <activity
-            android:name=".ParametreNewSb"
+            android:name=".NewStoryboardSettings"
             android:label="Nouvelle StoryBoard"
-            android:parentActivityName=".GererSB">
+            android:parentActivityName=".HandleStoryboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GererSB" />
+                android:value=".HandleStoryboard" />
         </activity>
         <activity
             android:name=".GererNewSBColor"
             android:label="Story Board"
-            android:parentActivityName=".ParametreNewSb">
+            android:parentActivityName=".NewStoryboardSettings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ParametreNewSb" />
+                android:value=".NewStoryboardSettings" />
         </activity>
-        <activity android:name=".ChangerCouleurSB"
+        <activity android:name=".ChangeStoryboardElement"
             android:label="Couleur"
             android:parentActivityName=".GererNewSBColor">
             <meta-data

@@ -1,30 +1,23 @@
 package com.example.quentinlehmann.dmxv2;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 
-import java.io.IOException;
-import java.net.InetAddress;
-
-public class ParametreNewSb extends AppCompatActivity {
+public class NewStoryboardSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_parametre_new_sb );
-        Toast.makeText(this, "ParametreNewSb.java", Toast.LENGTH_LONG).show();
+        setContentView( R.layout.activity_new_storyboard_settings);
+        Toast.makeText(this, "NewStoryboardSettings.java", Toast.LENGTH_LONG).show();
 
         final Configuration localeConfiguration = new Configuration(Configuration.getInstance());
 
@@ -90,15 +83,15 @@ public class ParametreNewSb extends AppCompatActivity {
 
 
                 Configuration.getInstance().ApplyConfiguration( localeConfiguration );
-                Toast.makeText( ParametreNewSb.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
+                Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
                 GererNewSBColor( view );
 /*
-                Toast.makeText(ParametreNewSb.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
                 Configuration.getInstance().ApplyConfiguration(localeConfiguration);
                 try {
                     ConfigurationOld.getCurrentInstance().SauvegarderCC();
                 } catch (IOException e) {
-                    Toast.makeText(ParametreNewSb.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewStoryboardSettings.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
                 try {
@@ -107,10 +100,10 @@ public class ParametreNewSb extends AppCompatActivity {
                     GererNewSBColor(view);
                 } catch (IOException e) {
 
-                    Toast.makeText( ParametreNewSb.getCurrentInstance(), "Erreur 1", Toast.LENGTH_LONG ).show();
+                    Toast.makeText( NewStoryboardSettings.getCurrentInstance(), "Erreur 1", Toast.LENGTH_LONG ).show();
 
                 }catch (Exception e) {
-                    Toast.makeText( ParametreNewSb.getCurrentInstance(), "Erreur 2", Toast.LENGTH_LONG ).show();
+                    Toast.makeText( NewStoryboardSettings.getCurrentInstance(), "Erreur 2", Toast.LENGTH_LONG ).show();
                 }
                 */
             }

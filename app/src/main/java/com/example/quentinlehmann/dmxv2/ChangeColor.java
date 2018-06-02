@@ -1,40 +1,26 @@
 package com.example.quentinlehmann.dmxv2;
 
-import android.app.Dialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 import com.example.quentinlehmann.dmxv2.JSON.PacketConstructor;
 
-import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 /**
  * Activité de changement de couleur simple
  */
-public class Changer_Couleur extends AppCompatActivity {
+public class ChangeColor extends AppCompatActivity {
 
     /**
      * Renseigne le niveau de rouge au démarrage de l'interface
@@ -75,9 +61,9 @@ public class Changer_Couleur extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_changer__couleur );
+        setContentView( R.layout.activity_change_color);
 
-        Toast.makeText(this, "Changer_Couleur.java", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "ChangeColor.java", Toast.LENGTH_LONG).show();
 
         // renseigne les layouts
         redLayout = findViewById(R.id.LayoutRed);
@@ -175,10 +161,10 @@ public class Changer_Couleur extends AppCompatActivity {
                 try {
                     //NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
                     NetworkManager.getInstance().SendFragment( json, Configuration.getInstance().getHostname(), Configuration.getInstance().getSendPort() );
-                    Toast.makeText(Changer_Couleur.this, "Sent", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangeColor.this, "Sent", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(Changer_Couleur.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChangeColor.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         } );
@@ -204,7 +190,7 @@ public class Changer_Couleur extends AppCompatActivity {
 
             case R.id.MenuChangerCouleur:
                 final Configuration localeConfiguration = new Configuration(Configuration.getInstance());
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder( Changer_Couleur.this );
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder( ChangeColor.this );
                 final View mView = getLayoutInflater().inflate( R.layout.boite_dialogue_settings, null);
                 mBuilder.setView( mView );
 
@@ -212,9 +198,9 @@ public class Changer_Couleur extends AppCompatActivity {
                 mBuilder.setPositiveButton( "Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(Changer_Couleur.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChangeColor.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
                         Configuration.getInstance().ApplyConfiguration(localeConfiguration);
-                        Configuration.getInstance().Write(Changer_Couleur.this);
+                        Configuration.getInstance().Write(ChangeColor.this);
                     }
                 });
 

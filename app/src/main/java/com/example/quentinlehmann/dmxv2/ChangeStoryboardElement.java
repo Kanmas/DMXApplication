@@ -1,28 +1,17 @@
 package com.example.quentinlehmann.dmxv2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.example.quentinlehmann.dmxv2.JSON.PacketConstructor;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-
-public class ChangerCouleurSB extends AppCompatActivity {
+public class ChangeStoryboardElement extends AppCompatActivity {
 
 
     private static final int BASE_RED_BALANCE = 127;
@@ -42,8 +31,8 @@ public class ChangerCouleurSB extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_changer_couleur_sb );
-        Toast.makeText(this, "ChangerCouleurSB.java", Toast.LENGTH_LONG).show();
+        setContentView( R.layout.activity_change_storyboard_element);
+        Toast.makeText(this, "ChangeStoryboardElement.java", Toast.LENGTH_LONG).show();
         redLayout = findViewById( R.id.linearLayoutRedSb );
         greenLayout = findViewById( R.id.linearLayoutGreenSb );
         blueLayout = findViewById( R.id.linearLayoutBlueSb );

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.quentinlehmann.dmxv2.GererSB"
-    tools:showIn="@layout/activity_gerer_sb">
+    tools:context="com.example.quentinlehmann.dmxv2.HandleStoryboard"
+    tools:showIn="@layout/activity_handle_storyboard">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcStoryboardList"

@@ -1,27 +1,20 @@
 package com.example.quentinlehmann.dmxv2;
 
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 
-import java.io.IOException;
-
 /**
  * Activité de changement des paramètres globaux de l'application
  */
-public class ParametreGlobaux extends AppCompatActivity {
+public class GlobalsSettings extends AppCompatActivity {
 
     /**
      * Configuration locale
@@ -44,9 +37,9 @@ public class ParametreGlobaux extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView(R.layout.activity_parametre_globaux);
+        setContentView(R.layout.activity_globals_settings);
 
-        Toast.makeText(this, "ParametreGlobaux.java", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "GlobalsSettings.java", Toast.LENGTH_LONG).show();
 
         // initialisation des champs textes
         hostnameEditText = findViewById(R.id.editTextAddrIP);
@@ -134,8 +127,8 @@ public class ParametreGlobaux extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Configuration.getInstance().ApplyConfiguration(localeConfiguration);
-                Configuration.getInstance().Write(ParametreGlobaux.this);
-                Toast.makeText(ParametreGlobaux.this, Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
+                Configuration.getInstance().Write(GlobalsSettings.this);
+                Toast.makeText(GlobalsSettings.this, Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
             }
         } );
     }

@@ -1,6 +1,5 @@
 package com.example.quentinlehmann.dmxv2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,21 +10,20 @@ import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
 /**
  * Activité de démarrage de l'application
  */
-public class Bienvenue extends AppCompatActivity {
+public class Welcome extends AppCompatActivity {
 
     public static final String CONFIGURATION_FILE_PATH = "configuration.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_bienvenue );
+        setContentView( R.layout.activity_welcome);
 
         initilizeConfiguration();
 
@@ -95,13 +93,13 @@ public class Bienvenue extends AppCompatActivity {
 
 
     public void Page_Changer_Couleur(View view) {
-        startActivity( new Intent( this, Changer_Couleur.class ) );
+        startActivity( new Intent( this, ChangeColor.class ) );
     }
     public void GererSB(View view){
-        startActivity( new Intent( this, GererSB.class));
+        startActivity( new Intent( this, HandleStoryboard.class));
     }
 
     public void ParametreGlobaux (View view){
-        startActivity( new Intent( this, ParametreGlobaux.class) );
+        startActivity( new Intent( this, GlobalsSettings.class) );
     }
 }

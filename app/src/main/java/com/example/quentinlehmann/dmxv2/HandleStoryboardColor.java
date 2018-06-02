@@ -7,31 +7,28 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
-
-import java.io.Serializable;
 
 /**
  * Activité de gestion des couleurs d'une storyboard
  * Il s'agit de la liste de couleur
  */
-public class GererCouleurSB extends AppCompatActivity {
+public class HandleStoryboardColor extends AppCompatActivity {
 
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_gerer_couleur_sb );
+        setContentView( R.layout.activity_handle_storyboard_color);
 
-        Toast.makeText(this, "GererCouleurSB.java", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "HandleStoryboardColor.java", Toast.LENGTH_LONG).show();
 
         String serializedStoryboard = (String)getIntent().getSerializableExtra("Storyboard");
         Storyboard storyboard = (Storyboard)Json.getInstance().Deserialize(serializedStoryboard, Storyboard.class);
 
-        Toast.makeText(GererCouleurSB.this, storyboard.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(HandleStoryboardColor.this, storyboard.toString(), Toast.LENGTH_LONG).show();
 
         RecyclerView rc = findViewById(R.id.rcGererCouleurSB);
         rc.setLayoutManager(new LinearLayoutManager(this));
@@ -40,7 +37,7 @@ public class GererCouleurSB extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 ChangerCouleurSB(view, myRecyclerViewAdapter.getItem(position));
-                Toast.makeText(GererCouleurSB.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HandleStoryboardColor.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -57,7 +54,7 @@ public class GererCouleurSB extends AppCompatActivity {
     }
 
     public void ChangerCouleurSB (View view, StoryboardElement element) {
-        Intent intent = new Intent(this, ChangerCouleurSB.class);
+        Intent intent = new Intent(this, ChangeStoryboardElement.class);
         intent.putExtra("element", Json.getInstance().Serialize(element));
         startActivity(intent);
     }

@@ -5,11 +5,11 @@
     android:id="@+id/coordinatorLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.quentinlehmann.dmxv2.GererSB">
+    tools:context="com.example.quentinlehmann.dmxv2.HandleStoryboard">
 
     <include
         android:id="@+id/include2"
-        layout="@layout/content_gerer_sb"
+        layout="@layout/content_handle_storyboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/fab"

@@ -89,11 +89,11 @@ public class ConfigurationOld extends BaseModel {
     public void Sauvegarder () throws IOException {
 
 /*
-        FileOutputStream outputStream = ParametreGlobaux.getCurrentInstance().openFileOutput( "Sauvegarder.json", Context.MODE_PRIVATE );
+        FileOutputStream outputStream = GlobalsSettings.getCurrentInstance().openFileOutput( "Sauvegarder.json", Context.MODE_PRIVATE );
         outputStream.write( Json.getInstance().Serialize( this ).getBytes() );
         if (outputStream!=null)
             outputStream.close();
-        Toast.makeText(ParametreGlobaux.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();*/
+        Toast.makeText(GlobalsSettings.getCurrentInstance() ,  "Sauvegarder", Toast.LENGTH_LONG).show();*/
     }
 
     public void SauvegarderCC () throws IOException {

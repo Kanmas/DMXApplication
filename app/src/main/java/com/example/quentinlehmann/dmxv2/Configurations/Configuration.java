@@ -3,7 +3,7 @@ package com.example.quentinlehmann.dmxv2.Configurations;
 import android.content.Context;
 
 import com.example.quentinlehmann.dmxv2.BaseModel;
-import com.example.quentinlehmann.dmxv2.Bienvenue;
+import com.example.quentinlehmann.dmxv2.Welcome;
 import com.example.quentinlehmann.dmxv2.Json;
 
 import java.io.OutputStream;
@@ -256,7 +256,7 @@ public class Configuration extends BaseModel{
      * Ecrit la configuration actuelle dans les fichiers de l'application
      */
     public void Write (Context context) {
-        String filePath = Bienvenue.CONFIGURATION_FILE_PATH;
+        String filePath = Welcome.CONFIGURATION_FILE_PATH;
         String json = Json.getInstance().Serialize(this);
 
         OutputStream outputStream;
