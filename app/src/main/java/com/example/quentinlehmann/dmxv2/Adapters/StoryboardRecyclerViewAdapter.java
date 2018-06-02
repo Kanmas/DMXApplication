@@ -1,4 +1,4 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.quentinlehmann.dmxv2.Common.Storyboard;
+import com.example.quentinlehmann.dmxv2.R;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class StoryboardRecyclerViewAdapter extends RecyclerView.Adapter<Storyboa
     private LayoutInflater mInflater;
     private StoryboardRecyclerViewAdapter.ItemClickListener mClickListener;
 
-    StoryboardRecyclerViewAdapter (Context context, List<Storyboard> data) {
+    public StoryboardRecyclerViewAdapter (Context context, List<Storyboard> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

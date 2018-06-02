@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.quentinlehmann.dmxv2.Adapters.StoryboardRecyclerViewAdapter;
 import com.example.quentinlehmann.dmxv2.Common.Storyboard;
 import com.example.quentinlehmann.dmxv2.JSON.Json;
 

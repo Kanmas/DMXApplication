@@ -1,4 +1,4 @@
-package com.example.quentinlehmann.dmxv2;
+package com.example.quentinlehmann.dmxv2.Adapters;
 
 
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.quentinlehmann.dmxv2.Common.StoryboardElement;
+import com.example.quentinlehmann.dmxv2.R;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, List<StoryboardElement> data) {
+    public MyRecyclerViewAdapter(Context context, List<StoryboardElement> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -66,12 +67,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     // convenience method for getting data at click position
-    StoryboardElement getItem(int id) {
+    public StoryboardElement getItem(int id) {
         return mData.get(id);
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
