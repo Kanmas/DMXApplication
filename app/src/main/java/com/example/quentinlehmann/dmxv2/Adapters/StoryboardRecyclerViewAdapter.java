@@ -32,9 +32,9 @@ public class StoryboardRecyclerViewAdapter extends RecyclerView.Adapter<Storyboa
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Storyboard element = mData.get(position);
-        holder.timeTextView.setText( String.valueOf( element.getDuration() ) );
+        holder.timeTextView.setText( String.valueOf( element.getDuration() ) + " sec." );
         holder.nameTextView.setText( element.getName() );
-        holder.countTextView.setText( String.valueOf( element.getCount() ) );
+        holder.countTextView.setText( String.valueOf( element.getCount() ) + " éléments" );
     }
 
     @Override

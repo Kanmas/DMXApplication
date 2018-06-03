@@ -40,6 +40,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         StoryboardElement element = mData.get(position);
         holder.myTimeTextView.setText(String.valueOf(element.getTime()));
         holder.myLinearLayout.setBackgroundColor(Color.rgb(element.getRed(), element.getGreen(), element.getBlue()));
+        holder.myPositionTextView.setText(String.valueOf(position));
     }
 
     // total number of rows
@@ -52,11 +53,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTimeTextView;
         LinearLayout myLinearLayout;
+        TextView myPositionTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTimeTextView = itemView.findViewById(R.id.tvTime);
             myLinearLayout = itemView.findViewById(R.id.llColor);
+            myPositionTextView = itemView.findViewById(R.id.tvPosition);
             itemView.setOnClickListener(this);
         }
 
@@ -86,7 +89,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         void onItemClick(View view, int position);
     }
 
-    public List<StoryboardElement> getmData() {
+    public List<StoryboardElement> getData() {
         return mData;
     }
 

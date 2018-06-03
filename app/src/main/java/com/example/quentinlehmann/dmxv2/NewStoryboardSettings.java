@@ -120,6 +120,13 @@ public class NewStoryboardSettings extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.btnCancelNewStoryboard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HandleStoryboard(view);
+            }
+        });
+
     }
 
     public void HandleStoryboardColor (View view) {
@@ -128,5 +135,9 @@ public class NewStoryboardSettings extends AppCompatActivity {
         //intent.putExtra("Storyboard", json);
         Storyboard.setCurrentInstance(newStoryBoard);
         startActivity(intent);
+    }
+
+    public void HandleStoryboard (View view) {
+        startActivity(new Intent(this, HandleStoryboard.class));
     }
 }

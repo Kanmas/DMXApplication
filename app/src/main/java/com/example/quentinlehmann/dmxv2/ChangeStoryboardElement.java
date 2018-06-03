@@ -163,6 +163,12 @@ public class ChangeStoryboardElement extends AppCompatActivity {
             }
         } );
 
+        findViewById(R.id.btnAnnulerCouleurSb).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HandleStoryboardColor(view);
+            }
+        });
 
         // Intialisation du gestionnaire du bouton envoyer
         findViewById( R.id.btnenvoyerCouleurSb ).setOnClickListener( new View.OnClickListener() {
@@ -176,6 +182,9 @@ public class ChangeStoryboardElement extends AppCompatActivity {
             }
         } );
 
+    }
 
+    public void HandleStoryboardColor (View view) {
+        startActivity(new Intent(this, HandleStoryboardColor.class));
     }
 }
