@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Common.ColorWrapper;
+import com.example.quentinlehmann.dmxv2.Common.Storyboard;
 import com.example.quentinlehmann.dmxv2.Common.StoryboardElement;
 import com.example.quentinlehmann.dmxv2.JSON.Json;
 
@@ -34,14 +35,15 @@ public class ChangeStoryboardElement extends AppCompatActivity {
 
     private EditText timeEditText;
 
-    private ColorWrapper wrapper = new ColorWrapper();
-    private StoryboardElement storyboardElement = new StoryboardElement(BASE_RED_BALANCE, BASE_GREEN_BALANCE, BASE_GREEN_BALANCE, BASE_TIME);
+    private StoryboardElement storyboardElement = new StoryboardElement(BASE_RED_BALANCE, BASE_GREEN_BALANCE, BASE_BLUE_BALANCE, BASE_TIME);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_change_storyboard_element);
         Toast.makeText(this, "ChangeStoryboardElement.java", Toast.LENGTH_LONG).show();
+
+        storyboardElement = StoryboardElement.getCurrentInstance();
 
         // initialisation des layouts
         redLayout = findViewById( R.id.linearLayoutRedSb );
@@ -57,41 +59,30 @@ public class ChangeStoryboardElement extends AppCompatActivity {
         // initilisation du champs texte pour le temps
         timeEditText = findViewById(R.id.editTextTemps);
 
-        wrapper.setOnPropertyChanged( new BaseModel.PropertyChangedListener() {
+        storyboardElement.setOnPropertyChanged( new BaseModel.PropertyChangedListener() {
             @Override
             public void OnPropertyChanged(String propertyName) {
                 switch (propertyName) {
                     case ColorWrapper.RED:
-                        redLayout.setBackgroundColor( wrapper.getRedBalance() );
+                        redLayout.setBackgroundColor( storyboardElement.getRedBalance() );
                     case ColorWrapper.GREEN:
-                        greenLayout.setBackgroundColor( wrapper.getGreenBalance() );
+                        greenLayout.setBackgroundColor( storyboardElement.getGreenBalance() );
                     case ColorWrapper.BLUE:
-                        blueLayout.setBackgroundColor( wrapper.getBlueBalance() );
+                        blueLayout.setBackgroundColor( storyboardElement.getBlueBalance() );
 
-                    blendedLayout.setBackgroundColor( wrapper.getBlendedBalance() );
+                    blendedLayout.setBackgroundColor( storyboardElement.getBlendedBalance() );
                 }
             }
         } );
 
-        String json = (String)getIntent().getSerializableExtra("element");
+        storyboardElement.NotifyPropertyChanged(ColorWrapper.RED);
+        storyboardElement.NotifyPropertyChanged(ColorWrapper.GREEN);
+        storyboardElement.NotifyPropertyChanged(ColorWrapper.BLUE);
+        redSeekbar.setProgress(storyboardElement.getRed());
+        greenSeekbar.setProgress(storyboardElement.getGreen());
+        blueSeekbar.setProgress(storyboardElement.getBlue());
+        timeEditText.setText(String.valueOf(storyboardElement.getTime()));
 
-        if (json != null && !json.isEmpty()) {
-            storyboardElement = (StoryboardElement) Json.getInstance().Deserialize(json, StoryboardElement.class);
-            wrapper.setRed(storyboardElement.getRed());
-            wrapper.setGreen(storyboardElement.getGreen());
-            wrapper.setBlue(storyboardElement.getBlue());
-            timeEditText.setText(String.valueOf(storyboardElement.getTime()));
-            redSeekbar.setProgress(storyboardElement.getRed());
-            greenSeekbar.setProgress(storyboardElement.getGreen());
-            blueSeekbar.setProgress(storyboardElement.getBlue());
-        } else {
-            wrapper.setRed( BASE_RED_BALANCE );
-            wrapper.setGreen( BASE_GREEN_BALANCE );
-            wrapper.setBlue( BASE_BLUE_BALANCE );
-            redSeekbar.setProgress(BASE_RED_BALANCE);
-            greenSeekbar.setProgress(BASE_GREEN_BALANCE);
-            blueSeekbar.setProgress(BASE_BLUE_BALANCE);
-        }
 
         // Initialisation du gestionnaire d'événement du champs texte du temps
         timeEditText.addTextChangedListener( new TextWatcher() {
@@ -121,7 +112,7 @@ public class ChangeStoryboardElement extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-                wrapper.setRed( i );
+                storyboardElement.setRed( i );
             }
 
             @Override
@@ -139,7 +130,7 @@ public class ChangeStoryboardElement extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                wrapper.setBlue( i );
+                storyboardElement.setBlue( i );
             }
 
             @Override
@@ -158,7 +149,7 @@ public class ChangeStoryboardElement extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                wrapper.setGreen( i );
+                storyboardElement.setGreen( i );
             }
 
             @Override
@@ -177,7 +168,11 @@ public class ChangeStoryboardElement extends AppCompatActivity {
         findViewById( R.id.btnenvoyerCouleurSb ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (storyboardElement.getPosition() == -1) {
+                    Storyboard.getCurrentInstance().getStoryboardElements().add(storyboardElement);
+                } else {
+                    Storyboard.getCurrentInstance().getStoryboardElements().set(storyboardElement.getPosition(), storyboardElement);
+                }
             }
         } );
 

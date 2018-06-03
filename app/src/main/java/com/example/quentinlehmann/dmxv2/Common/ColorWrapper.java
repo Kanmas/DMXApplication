@@ -32,6 +32,16 @@ public class ColorWrapper extends BaseModel {
      */
     private int green;
 
+    public ColorWrapper () {
+
+    }
+
+    public ColorWrapper (int red, int green, int blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+    }
+
     /**
      * Renvoie la composante rouge sous forme d'entier
      * @return red

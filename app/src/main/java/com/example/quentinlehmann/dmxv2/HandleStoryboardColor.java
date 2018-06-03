@@ -46,7 +46,10 @@ public class HandleStoryboardColor extends AppCompatActivity {
         myRecyclerViewAdapter.setClickListener(new MyRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                HandleStoryboardElement(view, myRecyclerViewAdapter.getItem(position));
+                StoryboardElement element = myRecyclerViewAdapter.getItem(position);
+                element.setPosition(position);
+                StoryboardElement.setCurrentInstance(element);
+                HandleStoryboardElement(view);
                 Toast.makeText(HandleStoryboardColor.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -59,8 +62,11 @@ public class HandleStoryboardColor extends AppCompatActivity {
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make( view, "Replace with your own action 2", Snackbar.LENGTH_LONG )
-                        .setAction( "Action", null ).show();
+                StoryboardElement element = new StoryboardElement(127,127,127, 1.0);
+                element.setPosition(-1);
+                StoryboardElement.setCurrentInstance(element);
+                HandleStoryboardElement(view);
+                //Snackbar.make( view, "Replace with your own action 2", Snackbar.LENGTH_LONG ).setAction( "Action", null ).show();
             }
         } );
     }
@@ -70,9 +76,8 @@ public class HandleStoryboardColor extends AppCompatActivity {
      * @param view
      * @param element
      */
-    public void HandleStoryboardElement (View view, StoryboardElement element) {
+    public void HandleStoryboardElement (View view) {
         Intent intent = new Intent(this, ChangeStoryboardElement.class);
-        intent.putExtra("element", Json.getInstance().Serialize(element));
         startActivity(intent);
     }
 }

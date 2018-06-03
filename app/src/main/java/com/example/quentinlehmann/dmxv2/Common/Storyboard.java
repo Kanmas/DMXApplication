@@ -94,8 +94,10 @@ public class Storyboard {
     public double getDuration () {
         double time = 0.0;
 
-        for (StoryboardElement e : storyboardElements) {
-            time += e.getTime();
+        if (storyboardElements != null) {
+            for (StoryboardElement e : storyboardElements) {
+                time += e.getTime();
+            }
         }
 
         return time;
