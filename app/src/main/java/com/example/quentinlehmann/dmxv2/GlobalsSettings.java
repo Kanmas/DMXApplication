@@ -1,6 +1,7 @@
 package com.example.quentinlehmann.dmxv2;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -129,7 +130,19 @@ public class GlobalsSettings extends AppCompatActivity {
                 Configuration.getInstance().ApplyConfiguration(localeConfiguration);
                 Configuration.getInstance().Write(GlobalsSettings.this);
                 Toast.makeText(GlobalsSettings.this, Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
+                Welcome(view);
             }
         } );
+
+        findViewById(R.id.btnAnnulerGlobaux).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Welcome(view);
+            }
+        });
+    }
+
+    public void Welcome (View view) {
+        startActivity(new Intent(this, Welcome.class));
     }
 }

@@ -179,6 +179,7 @@ public class ChangeStoryboardElement extends AppCompatActivity {
                 } else {
                     Storyboard.getCurrentInstance().getStoryboardElements().set(storyboardElement.getPosition(), storyboardElement);
                 }
+                HandleStoryboardColor(view);
             }
         } );
 
