@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/content_gerer_couleur_sb"
+        layout="@layout/content_handle_storyboard_element"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/fab2"
