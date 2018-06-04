@@ -19,22 +19,34 @@ public class HandleStoryboard extends AppCompatActivity {
 
     private RecyclerView rcStoryboardList;
     private ArrayList<Storyboard> arrayList = new ArrayList<>(  );
-    private StoryboardRecyclerViewAdapter adapter;
+    private static StoryboardRecyclerViewAdapter adapter;
+
+    public static StoryboardRecyclerViewAdapter getAdapter () {
+        return adapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_handle_storyboard);
-        Toast.makeText(this, "HandleStoryboard.java", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "HandleStoryboard.java", Toast.LENGTH_LONG).show();
 
         rcStoryboardList = findViewById( R.id.rcStoryboardList );
 
 
+        arrayList.clear();
         arrayList.addAll(  Storyboard.findAll(this) );
+
+        String str = "";
+
+        for (Storyboard s : arrayList) {
+            str += s.toString();
+        }
+
+        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
 
         rcStoryboardList.setLayoutManager( new LinearLayoutManager( this ) );
         adapter = new StoryboardRecyclerViewAdapter( this, arrayList );
-
         adapter.setClickListener( new StoryboardRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

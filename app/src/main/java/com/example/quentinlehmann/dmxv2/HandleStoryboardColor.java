@@ -7,6 +7,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +17,10 @@ import com.example.quentinlehmann.dmxv2.Adapters.MyRecyclerViewAdapter;
 import com.example.quentinlehmann.dmxv2.Common.Storyboard;
 import com.example.quentinlehmann.dmxv2.Common.StoryboardElement;
 import com.example.quentinlehmann.dmxv2.JSON.Json;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 /**
  * Activité de gestion des couleurs d'une storyboard
@@ -29,7 +36,7 @@ public class HandleStoryboardColor extends AppCompatActivity {
         setContentView( R.layout.activity_handle_storyboard_color);
 
         // debug
-        Toast.makeText(this, "HandleStoryboardColor.java", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "HandleStoryboardColor.java", Toast.LENGTH_LONG).show();
 
         Storyboard.getCurrentInstance().write(this);
 
@@ -79,5 +86,30 @@ public class HandleStoryboardColor extends AppCompatActivity {
     public void HandleStoryboardElement (View view) {
         Intent intent = new Intent(this, ChangeStoryboardElement.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_handle_storyboard, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_delete_storyboard:
+                Storyboard.getCurrentInstance().delete(this);
+                startActivity(new Intent(this, HandleStoryboard.class));
+                Toast.makeText(this, "Complétement pété", Toast.LENGTH_SHORT).show();
+            case R.id.action_rename_storyboard:
+                boolean b = Storyboard.getCurrentInstance().rename (this, "newName" + Calendar.getInstance().getTime().toString());
+                startActivity(new Intent(this, HandleStoryboard.class));
+                Toast.makeText(this, (b) ? "Ok": "Not", Toast.LENGTH_LONG).show();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

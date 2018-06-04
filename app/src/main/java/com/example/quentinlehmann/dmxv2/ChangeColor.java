@@ -65,7 +65,7 @@ public class ChangeColor extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_change_color);
 
-        Toast.makeText(this, "ChangeColor.java", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "ChangeColor.java", Toast.LENGTH_LONG).show();
 
         // renseigne les layouts
         redLayout = findViewById(R.id.LayoutRed);

@@ -41,7 +41,7 @@ public class ChangeStoryboardElement extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_change_storyboard_element);
-        Toast.makeText(this, "ChangeStoryboardElement.java", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "ChangeStoryboardElement.java", Toast.LENGTH_LONG).show();
 
         storyboardElement = StoryboardElement.getCurrentInstance();
 

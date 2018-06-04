@@ -1,7 +1,9 @@
 package com.example.quentinlehmann.dmxv2.Common;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.example.quentinlehmann.dmxv2.HandleStoryboard;
 import com.example.quentinlehmann.dmxv2.JSON.Json;
 
 import java.io.BufferedReader;
@@ -22,7 +24,7 @@ public class Storyboard {
     /**
      * Le chemin du répertoire où se trouve les storyboards
      */
-    public static final String STORYBOARD_PATH = "storyboards";
+    public static final String STORYBOARD_PATH = "/storyboards/";
 
     /**
      * Les éléments de la storyboard
@@ -193,11 +195,14 @@ public class Storyboard {
                         buffer.append(readString);
                         buffer.append('\n');
                     }
+
                     bufferedReader.close();
                     streamReader.close();
                     stream.close();
 
-                    storyboards.add((Storyboard) Json.getInstance().Deserialize(buffer.toString(), Storyboard.class));
+                    Storyboard storyboard = (Storyboard) Json.getInstance().Deserialize(buffer.toString(), Storyboard.class);
+                    storyboard.setName(f.getName());
+                    storyboards.add(storyboard);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -218,5 +223,38 @@ public class Storyboard {
 
         File file = new File(directory, name);
         return !file.exists();
+    }
+
+    public boolean rename (Context context, String newName) {
+        if (!newName.equals(name)) {
+            Toast.makeText(context, context.getFilesDir().getAbsolutePath().toString(), Toast.LENGTH_SHORT).show();
+            File directory = new File(context.getFilesDir(), STORYBOARD_PATH);
+            if (!directory.exists()) directory.mkdir();
+            File newFile = new File(directory, newName);
+            if (newFile.exists()) {
+                Toast.makeText(context, "exist already", Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            File file = new File(directory, name);
+
+            boolean b = file.renameTo(newFile);
+            if (b) {
+                Toast.makeText(context, "Ok1", Toast.LENGTH_SHORT).show();
+                name = newName;
+                HandleStoryboard.getAdapter().getmData().clear();
+                HandleStoryboard.getAdapter().getmData().addAll(findAll(context));
+            }
+            return b;
+        } else {
+            return false;
+        }
+    }
+
+    public void delete (Context context) {
+        File directory = new File(context.getFilesDir(), STORYBOARD_PATH);
+        File file = new File(directory, name);
+
+        if (file.exists()) file.delete();
     }
 }
