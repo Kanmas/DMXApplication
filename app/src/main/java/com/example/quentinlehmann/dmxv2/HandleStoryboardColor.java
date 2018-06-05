@@ -1,16 +1,21 @@
 package com.example.quentinlehmann.dmxv2;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Adapters.MyRecyclerViewAdapter;
@@ -81,7 +86,6 @@ public class HandleStoryboardColor extends AppCompatActivity {
     /**
      * Change la vue pour aller sur l'activité de gestion de la couleur
      * @param view
-     * @param element
      */
     public void HandleStoryboardElement (View view) {
         Intent intent = new Intent(this, ChangeStoryboardElement.class);
@@ -101,15 +105,63 @@ public class HandleStoryboardColor extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_delete_storyboard:
-                Storyboard.getCurrentInstance().delete(this);
-                startActivity(new Intent(this, HandleStoryboard.class));
-                Toast.makeText(this, "Complétement pété", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder deleteBuilder = new AlertDialog.Builder( HandleStoryboardColor.this );
+                deleteBuilder.setTitle( "Effacer ?" );
+                deleteBuilder.setMessage( "Voulez-vous vraiment supprimer cette storyboard?" );
+                deleteBuilder.setPositiveButton( R.string.valider, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Storyboard.getCurrentInstance().delete(HandleStoryboardColor.this);
+                        startActivity(new Intent(HandleStoryboardColor.this, HandleStoryboard.class));
+                    }
+                } );
+                deleteBuilder.setNegativeButton( R.string.annuler, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                } );
+
+                Dialog deleteDialog = deleteBuilder.create();
+
+                deleteDialog.show();
+                break;
             case R.id.action_rename_storyboard:
-                boolean b = Storyboard.getCurrentInstance().rename (this, "newName" + Calendar.getInstance().getTime().toString());
-                startActivity(new Intent(this, HandleStoryboard.class));
-                Toast.makeText(this, (b) ? "Ok": "Not", Toast.LENGTH_LONG).show();
-            default:
-                return super.onOptionsItemSelected(item);
+                //boolean b = Storyboard.getCurrentInstance().rename (this, "newName" + Calendar.getInstance().getTime().toString());
+
+                //Toast.makeText(this, (b) ? "Ok": "Not", Toast.LENGTH_LONG).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder( HandleStoryboardColor.this );
+                final View mView = getLayoutInflater().inflate( R.layout.boite_dialogue_rename, null );
+                builder.setView( mView );
+                builder.setTitle( R.string.rename_storyboard );
+
+                builder.setNegativeButton( R.string.annuler, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                } );
+                builder.setPositiveButton( R.string.valider, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        startActivity(new Intent(HandleStoryboardColor.this, HandleStoryboard.class));
+                        Storyboard.getCurrentInstance().rename( HandleStoryboardColor.this, ((EditText) mView.findViewById( R.id.tvRenameStoryboard )).getText().toString() );
+
+
+                    }
+                } );
+                Dialog dialog = builder.create();
+                dialog.show();
+
+                break;
+            case R.id.action_send_storyboard:
+
+                break;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }

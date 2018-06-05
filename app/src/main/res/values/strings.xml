@@ -24,4 +24,5 @@
     <string name="ms">ms</string>
     <string name="rename_storyboard">Renommer</string>
     <string name="delete_storyboard">Effacer</string>
+    <string name="send_storyboard">Envoyer</string>
 </resources>

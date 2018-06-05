@@ -110,13 +110,18 @@ public class NewStoryboardSettings extends AppCompatActivity {
         findViewById( R.id.btnOKNewSb ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (newStoryBoard.checkName (NewStoryboardSettings.this)) {
-                    Configuration.getInstance().ApplyConfiguration( localeConfiguration );
-                    Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
-                    HandleStoryboardColor(view);
+                if (newStoryBoard.getName() != null && !newStoryBoard.getName().isEmpty()) {
+                    if (newStoryBoard.checkName (NewStoryboardSettings.this)) {
+                        Configuration.getInstance().ApplyConfiguration( localeConfiguration );
+                        Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
+                        HandleStoryboardColor(view);
+                    } else {
+                        Toast.makeText(NewStoryboardSettings.this, "Name already taken", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(NewStoryboardSettings.this, "Name already taken", Toast.LENGTH_SHORT).show();
+                    Toast.makeText( NewStoryboardSettings.this, "Veuillez nommer votre Storyboard", Toast.LENGTH_SHORT ).show();
                 }
+
             }
         });
 

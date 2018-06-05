@@ -1,6 +1,7 @@
 package com.example.quentinlehmann.dmxv2.JSON;
 
 import com.example.quentinlehmann.dmxv2.Common.ColorWrapper;
+import com.example.quentinlehmann.dmxv2.Common.Storyboard;
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 
 /**
@@ -20,5 +21,10 @@ public class PacketConstructor {
         packet.couleur.targetAddress = Configuration.getInstance().getTargetAddress();
         packet.couleur.target = "BARRELED";
         return Json.getInstance().Serialize(packet);
+    }
+
+    public static String constructStoryboardPacket (Storyboard storyboard) {
+        //
+        return "";
     }
 }
