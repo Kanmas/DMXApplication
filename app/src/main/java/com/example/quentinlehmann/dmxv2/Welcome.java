@@ -19,7 +19,7 @@ import java.io.FileReader;
  */
 public class Welcome extends AppCompatActivity {
 
-    public static final String CONFIGURATION_FILE_PATH = "/configuration.json";
+    public static final String CONFIGURATION_FILE_PATH = "configuration.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class Welcome extends AppCompatActivity {
         if (file.exists()) { // cas ou la configuration existe déjà
             StringBuilder text = new StringBuilder();
             try {
+                ////Toast.makeText( this, "La configuration existe", Toast.LENGTH_SHORT ).show();
                 // création d'un lecteur de tampon avec le contenu du fichier
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 // chaîne de caractère tampon
@@ -59,7 +60,8 @@ public class Welcome extends AppCompatActivity {
                 // Applique la configuration à la configuration globale
                 Configuration.getInstance().ApplyConfiguration(savedConfiguration);
                 // Debug
-                //Toast.makeText(this, savedConfiguration.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "1: " + savedConfiguration.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "2: "+ Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 e.printStackTrace();
                 //Toast.makeText(this, "Error config", Toast.LENGTH_LONG).show();
@@ -84,11 +86,13 @@ public class Welcome extends AppCompatActivity {
                 outputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
+
+                //Toast.makeText( this, "le else", Toast.LENGTH_SHORT ).show();
             }
 
             // Assigne la configuration par défaut à la configuration globale
             Configuration.getInstance().ApplyConfiguration(defaultConfiguration);
-            //Toast.makeText(this, "Not Exists", Toast.LENGTH_LONG).show();
+            ////Toast.makeText(this, "Not Exists", Toast.LENGTH_LONG).show();
         }
     }
 

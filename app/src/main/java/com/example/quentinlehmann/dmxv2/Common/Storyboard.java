@@ -227,12 +227,12 @@ public class Storyboard {
 
     public boolean rename (Context context, String newName) {
         if (!newName.equals(name)) {
-            Toast.makeText(context, context.getFilesDir().getAbsolutePath().toString(), Toast.LENGTH_SHORT).show();
+            ////Toast.makeText(context, context.getFilesDir().getAbsolutePath().toString(), Toast.LENGTH_SHORT).show();
             File directory = new File(context.getFilesDir(), STORYBOARD_PATH);
             if (!directory.exists()) directory.mkdir();
             File newFile = new File(directory, newName);
             if (newFile.exists()) {
-                Toast.makeText(context, "exist already", Toast.LENGTH_LONG).show();
+                ////Toast.makeText(context, "exist already", Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -240,7 +240,7 @@ public class Storyboard {
 
             boolean b = file.renameTo(newFile);
             if (b) {
-                Toast.makeText(context, "Ok1", Toast.LENGTH_SHORT).show();
+                ////Toast.makeText(context, "Ok1", Toast.LENGTH_SHORT).show();
                 name = newName;
                 HandleStoryboard.getAdapter().getmData().clear();
                 HandleStoryboard.getAdapter().getmData().addAll(findAll(context));

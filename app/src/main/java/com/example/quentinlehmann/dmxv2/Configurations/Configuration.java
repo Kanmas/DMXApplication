@@ -19,7 +19,7 @@ public class Configuration extends BaseModel{
     public static final String DEFAULT_HOSTNAME = "127.0.0.1";
     public static final int DEFAULT_SEND_PORT = 5000;
     public static final int DEFAULT_TARGET_ADDRESS = 1;
-    public static final String DEFAULT_TARGET_TYPE = "PROJO";
+    public static final String DEFAULT_TARGET_TYPE = "BARRELED";
     public static final int DEFAULT_RECEIVE_PORT = 15000;
 
     /**
@@ -72,6 +72,10 @@ public class Configuration extends BaseModel{
     public static Configuration getInstance () {
         if (instance == null) instance = new Configuration();
         return instance;
+    }
+
+    public static void setInstance (Configuration configuration) {
+        instance = configuration;
     }
 
     /**

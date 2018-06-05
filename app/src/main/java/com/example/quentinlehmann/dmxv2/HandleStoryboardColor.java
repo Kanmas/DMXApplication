@@ -19,9 +19,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Adapters.MyRecyclerViewAdapter;
+import com.example.quentinlehmann.dmxv2.Common.ColorWrapper;
 import com.example.quentinlehmann.dmxv2.Common.Storyboard;
 import com.example.quentinlehmann.dmxv2.Common.StoryboardElement;
+import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 import com.example.quentinlehmann.dmxv2.JSON.Json;
+import com.example.quentinlehmann.dmxv2.JSON.PacketConstructor;
+import com.example.quentinlehmann.dmxv2.Networking.NetworkManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -158,7 +162,14 @@ public class HandleStoryboardColor extends AppCompatActivity {
 
                 break;
             case R.id.action_send_storyboard:
-
+                String json = PacketConstructor.constructStoryboardPacket( Storyboard.getCurrentInstance() );
+                //Toast.makeText( HandleStoryboardColor.this, json, Toast.LENGTH_LONG ).show();
+                try {
+                    NetworkManager.getInstance().SendFragment( json, Configuration.getInstance().getHostname(), Configuration.getInstance().getSendPort() );
+                    Toast.makeText( HandleStoryboardColor.this, "Envoyer", Toast.LENGTH_SHORT ).show();
+                } catch (Exception e){
+                    Toast.makeText( HandleStoryboardColor.this, e.getMessage(), Toast.LENGTH_SHORT ).show();
+                }
                 break;
         }
 

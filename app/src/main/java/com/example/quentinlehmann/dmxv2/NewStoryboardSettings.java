@@ -26,7 +26,7 @@ public class NewStoryboardSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_new_storyboard_settings);
-        //Toast.makeText(this, "NewStoryboardSettings.java", Toast.LENGTH_LONG).show();
+        ////Toast.makeText(this, "NewStoryboardSettings.java", Toast.LENGTH_LONG).show();
 
         final Configuration localeConfiguration = new Configuration(Configuration.getInstance());
 
@@ -113,7 +113,7 @@ public class NewStoryboardSettings extends AppCompatActivity {
                 if (newStoryBoard.getName() != null && !newStoryBoard.getName().isEmpty()) {
                     if (newStoryBoard.checkName (NewStoryboardSettings.this)) {
                         Configuration.getInstance().ApplyConfiguration( localeConfiguration );
-                        Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
+                        //Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
                         HandleStoryboardColor(view);
                     } else {
                         Toast.makeText(NewStoryboardSettings.this, "Name already taken", Toast.LENGTH_SHORT).show();

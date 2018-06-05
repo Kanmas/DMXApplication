@@ -43,19 +43,14 @@ public class HandleStoryboard extends AppCompatActivity {
             str += s.toString();
         }
 
-        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, str, Toast.LENGTH_LONG).show();
 
         rcStoryboardList.setLayoutManager( new LinearLayoutManager( this ) );
         adapter = new StoryboardRecyclerViewAdapter( this, arrayList );
         adapter.setClickListener( new StoryboardRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                try {
 
-                    Toast.makeText( HandleStoryboard.this, "You clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_SHORT ).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 GererCouleurSB(view, adapter.getItem(position));
             }
         } );

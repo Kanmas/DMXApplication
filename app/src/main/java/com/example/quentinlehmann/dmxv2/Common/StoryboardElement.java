@@ -32,7 +32,7 @@ public class StoryboardElement extends ColorWrapper {
     /**
      * Type de cible de cet élément
      */
-    private String targetType = "BARRELED";
+    private String target = "BARRELED";
 
     /**
      * Initialise une nouvelle instance de StoryboardElement avec les couleurs en paramètre
@@ -46,20 +46,25 @@ public class StoryboardElement extends ColorWrapper {
         this.time = time;
     }
 
+    public StoryboardElement (StoryboardElement element) {
+        super(element.getRed(), element.getGreen(), element.getBlue());
+        time = element.getTime();
+    }
+
     /**
      * Renvoie le type de cible de cet élément
      * @return targetType
      */
-    public String getTargetType() {
-        return targetType;
+    public String getTarget() {
+        return target;
     }
 
     /**
      * Renseigne le type de cible de cette élément
      * @param targetType le type de cible
      */
-    public void setTargetType(String targetType) {
-        this.targetType = targetType;
+    public void setTarget (String targetType) {
+        this.target = targetType;
     }
 
     /**

@@ -163,7 +163,7 @@ public class ChangeColor extends AppCompatActivity {
                 try {
                     //NetworkManager.getInstance().SendFragment(json, InetAddress.getByName(ConfigurationOld.getCurrentInstance().getHostname()), Integer.parseInt(ConfigurationOld.getCurrentInstance().getPort()));
                     NetworkManager.getInstance().SendFragment( json, Configuration.getInstance().getHostname(), Configuration.getInstance().getSendPort() );
-                    Toast.makeText(ChangeColor.this, "Sent", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangeColor.this, "Envoyer", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(ChangeColor.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -200,7 +200,7 @@ public class ChangeColor extends AppCompatActivity {
                 mBuilder.setPositiveButton( "Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(ChangeColor.this, localeConfiguration.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChangeColor.this, "Sauvegarder", Toast.LENGTH_LONG).show();
                         Configuration.getInstance().ApplyConfiguration(localeConfiguration);
                         Configuration.getInstance().Write(ChangeColor.this);
                     }

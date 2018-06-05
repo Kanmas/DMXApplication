@@ -26,7 +26,20 @@ public class PacketConstructor {
 
     public static String constructStoryboardPacket (Storyboard storyboard) {
         StoryboardPacket packet = new StoryboardPacket();
-        packet.storyboard.elements = storyboard.getStoryboardElements().toArray(new StoryboardElement[storyboard.getStoryboardElements().size()]);
+        //packet.storyboard.elements = storyboard.getStoryboardElements().toArray(new StoryboardElement[storyboard.getStoryboardElements().size()]);
+        packet.storyboard.elements = new StoryboardElementPacket[storyboard.getStoryboardElements().size()];
+
+        for (int i = 0; i < storyboard.getStoryboardElements().size(); i++) {
+            packet.storyboard.elements[i] = new StoryboardElementPacket( storyboard.getStoryboardElements().get( i ) );
+
+        }
+        /*
+        for (StoryboardElement e : packet.storyboard.elements) {
+            e.setTargetAddress( 1 );
+            e.setTarget( "BARRELED" );
+            double time = e.getTime() * 1000;
+            e.setTime( time );
+        }*/
         packet.storyboard.name = storyboard.getName();
         return Json.getInstance().Serialize( packet );
     }

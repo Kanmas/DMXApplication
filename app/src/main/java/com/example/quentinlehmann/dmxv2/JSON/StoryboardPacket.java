@@ -7,7 +7,7 @@ public class StoryboardPacket {
     public StoryboardPacketWrapper storyboard = new StoryboardPacketWrapper();
 
     public class StoryboardPacketWrapper {
-        public StoryboardElement[] elements;
+        public StoryboardElementPacket[] elements;
         public String name;
     }
 }

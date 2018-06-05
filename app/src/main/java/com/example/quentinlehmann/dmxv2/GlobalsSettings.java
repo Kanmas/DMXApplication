@@ -40,7 +40,7 @@ public class GlobalsSettings extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_globals_settings);
 
-        Toast.makeText(this, "GlobalsSettings.java", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "GlobalsSettings.java", Toast.LENGTH_LONG).show();
 
         // initialisation des champs textes
         hostnameEditText = findViewById(R.id.editTextAddrIP);
@@ -127,9 +127,10 @@ public class GlobalsSettings extends AppCompatActivity {
         (findViewById( R.id.btnOKParaGlobo )).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Configuration.getInstance().ApplyConfiguration(localeConfiguration);
+                //Configuration.getInstance().ApplyConfiguration(localeConfiguration);
+                Configuration.setInstance( localeConfiguration );
                 Configuration.getInstance().Write(GlobalsSettings.this);
-                Toast.makeText(GlobalsSettings.this, Configuration.getInstance().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(GlobalsSettings.this, "Sauvegarder", Toast.LENGTH_LONG).show();
                 Welcome(view);
             }
         } );
