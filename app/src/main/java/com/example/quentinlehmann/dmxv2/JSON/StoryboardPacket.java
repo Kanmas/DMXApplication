@@ -8,5 +8,6 @@ public class StoryboardPacket {
 
     public class StoryboardPacketWrapper {
         public StoryboardElement[] elements;
+        public String name;
     }
 }
