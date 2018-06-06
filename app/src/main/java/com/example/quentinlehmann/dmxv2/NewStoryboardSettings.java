@@ -13,7 +13,14 @@ import com.example.quentinlehmann.dmxv2.Common.Storyboard;
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 import com.example.quentinlehmann.dmxv2.JSON.Json;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class NewStoryboardSettings extends AppCompatActivity {
+
+    public static final String IP_ADDRESS_PATTERN = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+
+    private boolean isHostnameValid = true;
 
     EditText portEditText;
     EditText targetAddressEditText;
@@ -42,7 +49,7 @@ public class NewStoryboardSettings extends AppCompatActivity {
         hostnameEditText.setText( (String.valueOf(localeConfiguration.getHostname().getHostAddress())) );
         storyboardNameEditText.setText("");
 
-        portEditText.addTextChangedListener( new TextWatcher() {
+        hostnameEditText.addTextChangedListener( new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -50,7 +57,7 @@ public class NewStoryboardSettings extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                localeConfiguration.setHostname(charSequence.toString());
+                isHostnameValid = localeConfiguration.setHostname(charSequence.toString());
             }
 
             @Override
@@ -74,7 +81,7 @@ public class NewStoryboardSettings extends AppCompatActivity {
 
             }
         });
-        hostnameEditText.addTextChangedListener(new TextWatcher() {
+        portEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -110,17 +117,28 @@ public class NewStoryboardSettings extends AppCompatActivity {
         findViewById( R.id.btnOKNewSb ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (newStoryBoard.getName() != null && !newStoryBoard.getName().isEmpty()) {
-                    if (newStoryBoard.checkName (NewStoryboardSettings.this)) {
-                        Configuration.getInstance().ApplyConfiguration( localeConfiguration );
-                        //Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
-                        HandleStoryboardColor(view);
+                Pattern p = Pattern.compile( IP_ADDRESS_PATTERN );
+                Matcher m = p.matcher(localeConfiguration.getHostname().toString());
+
+                    if (newStoryBoard.getName() != null && !newStoryBoard.getName().isEmpty()) {
+                        if(isHostnameValid) {
+                            Toast.makeText( NewStoryboardSettings.this, "Sauvegarder", Toast.LENGTH_LONG ).show();
+                            Configuration.getInstance().ApplyConfiguration( localeConfiguration );
+                            Configuration.getInstance().Write( NewStoryboardSettings.this );
+                        if (newStoryBoard.checkName( NewStoryboardSettings.this )) {
+                            Configuration.getInstance().ApplyConfiguration( localeConfiguration );
+                            //Toast.makeText( NewStoryboardSettings.this, localeConfiguration.toString(), Toast.LENGTH_LONG ).show();
+                            HandleStoryboardColor( view );
+                        } else {
+                            Toast.makeText( NewStoryboardSettings.this, "Name already taken", Toast.LENGTH_SHORT ).show();
+                        }
                     } else {
-                        Toast.makeText(NewStoryboardSettings.this, "Name already taken", Toast.LENGTH_SHORT).show();
+                            Toast.makeText( NewStoryboardSettings.this, "Veuillez entrer une adresse valide", Toast.LENGTH_SHORT ).show();
+                        }
+                }else {
+                        Toast.makeText( NewStoryboardSettings.this, "Veuillez nommer votre Storyboard", Toast.LENGTH_SHORT ).show();
                     }
-                } else {
-                    Toast.makeText( NewStoryboardSettings.this, "Veuillez nommer votre Storyboard", Toast.LENGTH_SHORT ).show();
-                }
+
 
             }
         });

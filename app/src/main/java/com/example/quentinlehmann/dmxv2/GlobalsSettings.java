@@ -12,10 +12,20 @@ import android.widget.Toast;
 
 import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Activité de changement des paramètres globaux de l'application
  */
 public class GlobalsSettings extends AppCompatActivity {
+
+    /**
+     * Regex pour l'adresse IP
+     */
+    public static final String IP_ADDRESS_PATTERN = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
     /**
      * Configuration locale
@@ -34,6 +44,8 @@ public class GlobalsSettings extends AppCompatActivity {
      * Champs texte pour l'adresse de la cible
      */
     private EditText targetAddressEditText;
+
+    private boolean isHostnameValid = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +92,7 @@ public class GlobalsSettings extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                localeConfiguration.setHostname(charSequence.toString());
+                isHostnameValid = localeConfiguration.setHostname( charSequence.toString());
             }
 
             @Override
@@ -128,10 +140,19 @@ public class GlobalsSettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Configuration.getInstance().ApplyConfiguration(localeConfiguration);
-                Configuration.setInstance( localeConfiguration );
-                Configuration.getInstance().Write(GlobalsSettings.this);
-                Toast.makeText(GlobalsSettings.this, "Sauvegarder", Toast.LENGTH_LONG).show();
-                Welcome(view);
+                Pattern p = Pattern.compile( IP_ADDRESS_PATTERN );
+                Matcher m = p.matcher(localeConfiguration.getHostname().toString());
+                if(isHostnameValid){
+                    Configuration.setInstance( localeConfiguration );
+                    Configuration.getInstance().Write(GlobalsSettings.this);
+                    Toast.makeText(GlobalsSettings.this, "Sauvegarder", Toast.LENGTH_LONG).show();
+                    Welcome(view);
+                } else {
+                    Toast.makeText( GlobalsSettings.this, "Veuillez entrer une adresse valide", Toast.LENGTH_SHORT ).show();
+                }
+
+
+
             }
         } );
 

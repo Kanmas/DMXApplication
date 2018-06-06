@@ -51,7 +51,7 @@ public class HandleStoryboardColor extends AppCompatActivity {
 
         // actualisation du titre
         setTitle(Storyboard.getCurrentInstance().getName());
-        Toast.makeText(HandleStoryboardColor.this, Storyboard.getCurrentInstance().toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(HandleStoryboardColor.this, Storyboard.getCurrentInstance().toString(), Toast.LENGTH_LONG).show();
 
         // initialisation du recycler
         RecyclerView rc = findViewById(R.id.rcGererCouleurSB);
@@ -66,7 +66,7 @@ public class HandleStoryboardColor extends AppCompatActivity {
                 element.setPosition(position);
                 StoryboardElement.setCurrentInstance(element);
                 HandleStoryboardElement(view);
-                Toast.makeText(HandleStoryboardColor.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(HandleStoryboardColor.this, "You clicked: " + myRecyclerViewAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

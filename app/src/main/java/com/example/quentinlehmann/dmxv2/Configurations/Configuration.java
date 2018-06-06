@@ -182,11 +182,13 @@ public class Configuration extends BaseModel{
      * Renseigne le nom d'hôte (adresse IP) distant
      * @param hostname
      */
-    public void setHostname (String hostname) {
+    public boolean setHostname (String hostname) {
         try {
             setHostname(InetAddress.getByName(hostname));
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

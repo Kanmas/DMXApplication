@@ -19,10 +19,17 @@ import com.example.quentinlehmann.dmxv2.Configurations.Configuration;
 import com.example.quentinlehmann.dmxv2.JSON.PacketConstructor;
 import com.example.quentinlehmann.dmxv2.Networking.NetworkManager;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Activité de changement de couleur simple
  */
 public class ChangeColor extends AppCompatActivity {
+
+    public static final String IP_ADDRESS_PATTERN = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+
+    private boolean isHostnameValid = true;
 
     /**
      * Renseigne le niveau de rouge au démarrage de l'interface
@@ -171,6 +178,20 @@ public class ChangeColor extends AppCompatActivity {
             }
         } );
 
+        (findViewById( R.id.btnAnnulerCouleur )).setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                colorWrapper.setRed(BASE_RED_BALANCE);
+                colorWrapper.setGreen(BASE_GREEN_BALANCE);
+                colorWrapper.setBlue(BASE_BLUE_BALANCE);
+
+                ((SeekBar)findViewById( R.id.seekBarRed )).setProgress( BASE_RED_BALANCE );
+                ((SeekBar)findViewById( R.id.seekBarBlue )).setProgress( BASE_BLUE_BALANCE );
+                ((SeekBar)findViewById( R.id.seekBarGreen )).setProgress( BASE_GREEN_BALANCE );
+            }
+        } );
+
         }
 
     @Override
@@ -200,9 +221,15 @@ public class ChangeColor extends AppCompatActivity {
                 mBuilder.setPositiveButton( "Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(ChangeColor.this, "Sauvegarder", Toast.LENGTH_LONG).show();
-                        Configuration.getInstance().ApplyConfiguration(localeConfiguration);
-                        Configuration.getInstance().Write(ChangeColor.this);
+                        Pattern p = Pattern.compile( IP_ADDRESS_PATTERN );
+                        Matcher m = p.matcher(localeConfiguration.getHostname().toString());
+                        if(isHostnameValid){
+                            Toast.makeText(ChangeColor.this, "Sauvegarder", Toast.LENGTH_LONG).show();
+                            Configuration.getInstance().ApplyConfiguration(localeConfiguration);
+                            Configuration.getInstance().Write(ChangeColor.this);
+                        } else {
+                            Toast.makeText( ChangeColor.this, "Veuillez entrer une adresse valide", Toast.LENGTH_SHORT ).show();
+                        }
                     }
                 });
 
@@ -219,7 +246,7 @@ public class ChangeColor extends AppCompatActivity {
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         //ConfigurationOld.getCurrentInstance().setHostname(charSequence.toString());
-                        localeConfiguration.setHostname(charSequence.toString());
+                        isHostnameValid = localeConfiguration.setHostname(charSequence.toString());
                     }
 
                     @Override

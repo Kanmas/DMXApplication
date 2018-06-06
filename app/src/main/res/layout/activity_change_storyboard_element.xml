@@ -131,7 +131,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/temps"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBarGreenSb" />
@@ -142,7 +142,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="24dp"
         android:layout_marginStart="8dp"
-        android:text="@string/ms"
+        android:text="s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextTemps" />
 
