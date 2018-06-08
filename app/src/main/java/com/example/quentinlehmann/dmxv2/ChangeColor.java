@@ -1,6 +1,7 @@
 package com.example.quentinlehmann.dmxv2;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -189,6 +190,8 @@ public class ChangeColor extends AppCompatActivity {
                 ((SeekBar)findViewById( R.id.seekBarRed )).setProgress( BASE_RED_BALANCE );
                 ((SeekBar)findViewById( R.id.seekBarBlue )).setProgress( BASE_BLUE_BALANCE );
                 ((SeekBar)findViewById( R.id.seekBarGreen )).setProgress( BASE_GREEN_BALANCE );
+
+                startActivity( new Intent( ChangeColor.this, Welcome.class) );
             }
         } );
 

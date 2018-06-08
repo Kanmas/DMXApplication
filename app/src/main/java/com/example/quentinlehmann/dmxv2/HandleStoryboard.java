@@ -37,14 +37,6 @@ public class HandleStoryboard extends AppCompatActivity {
         arrayList.clear();
         arrayList.addAll(  Storyboard.findAll(this) );
 
-        String str = "";
-
-        for (Storyboard s : arrayList) {
-            str += s.toString();
-        }
-
-        //Toast.makeText(this, str, Toast.LENGTH_LONG).show();
-
         rcStoryboardList.setLayoutManager( new LinearLayoutManager( this ) );
         adapter = new StoryboardRecyclerViewAdapter( this, arrayList );
         adapter.setClickListener( new StoryboardRecyclerViewAdapter.ItemClickListener() {

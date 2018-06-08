@@ -35,7 +35,7 @@
         </activity>
         <activity
             android:name=".GlobalsSettings"
-            android:label="Paramètre"
+            android:label="Paramètres"
             android:parentActivityName=".Welcome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -43,7 +43,7 @@
         </activity>
         <activity
             android:name=".HandleStoryboardColor"
-            android:label="Story Board"
+            android:label="Storyboard"
             android:parentActivityName=".HandleStoryboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

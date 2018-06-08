@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">DmxController
     </string>
-    <string name="g_rer_les_story_boards">Gérer les story boards</string>
+    <string name="g_rer_les_story_boards">Gérer les storyboards</string>
     <string name="Changer_couleur">Changer couleur</string>
     <string name="changer_couleur">Changer couleur</string>
-    <string name="param_tre">Paramètre</string>
+    <string name="param_tre">Paramètres</string>
     <string name="title_activity_gerer_sb">GererSb</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_gerer_story_board">GererStoryBoard</string>
@@ -18,7 +18,7 @@
     <string name="annuler">Annuler</string>
     <string name="title_activity_gerer_couleur_sb">GererCouleurSB</string>
     <string name="sauvegarder">Sauvegarder</string>
-    <string name="nom_de_la_story_board">Nom de la Story Board</string>
+    <string name="nom_de_la_story_board">Nom de la Storyboard</string>
     <string name="title_activity_gerer_new_sbcolor">GererNewSBColor</string>
     <string name="temps">Temps</string>
     <string name="ms">ms</string>

@@ -34,7 +34,8 @@ public class StoryboardRecyclerViewAdapter extends RecyclerView.Adapter<Storyboa
         Storyboard element = mData.get(position);
         holder.timeTextView.setText( String.valueOf( element.getDuration() ) + " sec." );
         holder.nameTextView.setText( element.getName() );
-        holder.countTextView.setText( String.valueOf( element.getCount() ) + " éléments" );
+        int count = (int)element.getCount();
+        holder.countTextView.setText( String.valueOf( count ) + ((count == 1)? " élément": " éléments") );
     }
 
     @Override
