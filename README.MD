@@ -4,7 +4,7 @@ DMXApplication est une application de gestion d'éléments lumineux pour android
 
 ## Installation
 
-Pour installer cette application, il suffit cloner les sources à partir de ce depôt et d'ouvrir ce dernier dans android studio.
+Pour installer cette application, il suffit cloner les sources à partir de ce dépôt et d'ouvrir ce dernier dans android studio.
 
 Une fois dans Android studio, il s'agit de synchroniser gradle via
 
@@ -18,4 +18,4 @@ Pour finir il faut lancer le projet via
 
     Run > Run 'app'
 
-Il faut bien sur au préalable avoir un émulateur ou téléphone branché.
+Il faut bien sûr au préalable avoir un émulateur ou téléphone branché.
